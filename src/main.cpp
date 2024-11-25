@@ -8,8 +8,8 @@ using namespace std;
 class Fichier
 {
 private:
-    string first_lign;          // Première ligne contenant les dimensions
-    vector<vector<int>> matrix; // Matrice 2D pour stocker les données
+    string premiere_ligne;          // Première ligne contenant les dimensions
+    vector<vector<int>> matrice; // Matrice 2D pour stocker les données
 
 public:
     Fichier() {}
@@ -26,25 +26,25 @@ public:
         }
 
         // Lire la première ligne (dimensions)
-        getline(nom_fichier, first_lign);
+        getline(nom_fichier, premiere_ligne);
 
         // Extraire les dimensions de la première ligne
-        stringstream fl(first_lign);
-        int rows, cols;
-        fl >> rows >> cols;
+        stringstream pl(premiere_ligne);
+        int ligne, colonne;
+        pl >> ligne >> colonne;
 
         // Redimensionner la matrice en fonction des dimensions lues
-        matrix.resize(rows, vector<int>(cols));
+        matrice.resize(ligne, vector<int>(colonne));
 
         // Lire le reste du fichier pour remplir la matrice
-        string line;
-        for (int i = 0; i < rows; i++)
+        string reste_ligne;
+        for (int i = 0; i < ligne; i++)
         {
-            getline(nom_fichier, line);
-            stringstream line_ss(line);
-            for (int j = 0; j < cols; j++)
+            getline(nom_fichier, reste_ligne);
+            stringstream reste_ligne_stringstream(reste_ligne);
+            for (int j = 0; j < colonne; j++)
             {
-                line_ss >> matrix[i][j];
+                reste_ligne_stringstream >> matrice[i][j];
             }
         }
 
@@ -54,19 +54,19 @@ public:
     // Afficher la taille de la matrice et son contenu
     void afficher_matrice()
     {
-        int rows = matrix.size();    // Nombre de lignes
-        int cols = matrix[0].size(); // Nombre de colonnes
+        int ligne = matrice.size();    // Nombre de lignes
+        int colonne = matrice[0].size(); // Nombre de colonnes
 
         // Afficher les dimensions de la matrice
-        cout << "Dimensions de la matrice : " << rows << " lignes x " << cols << " colonnes." << endl;
+        cout << "Dimensions de la matrice : " << ligne << " lignes x " << colonne << " colonnes." << endl;
 
         // Afficher le contenu de la matrice
         cout << "Contenu de la matrice : " << endl;
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < ligne; i++)
         {
-            for (int j = 0; j < cols; j++)
+            for (int j = 0; j < colonne; j++)
             {
-                cout << matrix[i][j] << " ";
+                cout << matrice[i][j] << " ";
             }
             cout << endl; // Saut de ligne après chaque ligne de la matrice
         }
