@@ -8,7 +8,7 @@ class grille {
         grille();
         grille(int x, int y);
         int get_x();
-        void set_y();
+        void set_x();
         int get_y();
         void set_y();
         void grille_creation();

@@ -6,12 +6,14 @@
 #include <string>
 #include <vector>
 #include <sstream>
+using namespace std;
+
 
 class Fichier
 {
     private:
-        std::string premiere_ligne;          // Première ligne contenant les dimensions
-        std::vector<std::vector<int>> matrice; // Matrice 2D pour stocker les données
+        string premiere_ligne;          // Première ligne contenant les dimensions
+        vector<vector<int>> matrice; // Matrice 2D pour stocker les données
     public:
         Fichier();
         void lecture_fichier();
