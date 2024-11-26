@@ -38,22 +38,15 @@ void Fichier::lecture_fichier()
     nom_fichier.close();
 }
 
-// Afficher la taille de la matrice et son contenu
-void Fichier::afficher_matrice(){
-    int ligne = matrice.size();    // Nombre de lignes
-    int colonne = matrice[0].size(); // Nombre de colonnes
 
-    // Afficher les dimensions de la matrice
-    cout << "Dimensions de la matrice : " << ligne << " lignes x " << colonne << " colonnes." << endl;
+int Fichier::get_ligne(){
+    return matrice.size();
+}
 
-    // Afficher le contenu de la matrice
-    cout << "Contenu de la matrice : " << endl;
-    for (int i = 0; i < ligne; i++)
-    {
-        for (int j = 0; j < colonne; j++)
-        {
-            cout << matrice[i][j] << " ";
-        }
-        cout << endl; // Saut de ligne après chaque ligne de la matrice
-    }
+int Fichier::get_colonne(){
+    return matrice[0].size();
+}
+
+vector<vector<int>> Fichier::get_matrice(){
+    return matrice;
 }

@@ -1,13 +1,14 @@
 #include "Fichier.h"
+#include "Grille.h"
+#include "Grille_terminal.h"
 
 
 
 
 int main()
 {
-    Fichier test;
-    test.lecture_fichier();  // Lecture du fichier
-    test.afficher_matrice(); // Affichage des dimensions et du contenu de la matrice
-
+    Grille *grille;
+    grille = new Grille_terminal(); 
+    grille->afficher_grille();
     return 0;
 }
