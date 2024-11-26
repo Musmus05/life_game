@@ -8,6 +8,7 @@
 #include <sstream>
 using namespace std;
 
+#include "Grille.h"
 
 class Fichier
 {
@@ -17,7 +18,10 @@ class Fichier
     public:
         Fichier();
         void lecture_fichier();
-        void afficher_matrice();
+        int get_ligne();
+        int get_colonne();
+        vector<vector<int>> get_matrice();
+
 
 
 };

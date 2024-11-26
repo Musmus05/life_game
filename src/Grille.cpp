@@ -1,5 +1,14 @@
 #include "Grille.h"
 
-grille::grille(){};
-grille::grille(int x, int y): x(x), y(y){}
+Grille::Grille(){
+    Fichier lecture;
+    lecture.lecture_fichier();
+    this->ligne = lecture.get_ligne();
+    this->colonne = lecture.get_colonne();
+    this->matrice = lecture.get_matrice();
+};
 
+
+Grille::~Grille() {
+
+}
