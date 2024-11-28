@@ -14,8 +14,9 @@ public:
     Cellule(int x, int y, bool status_cellule);
 
     int get_cpt();
+    bool get_status();
 
     void afficher() const;
 
-    ~Cellule() {cpt--;}
+    ~Cellule();
 };

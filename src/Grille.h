@@ -3,6 +3,8 @@
 #include "Cellule.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 class Grille
 {
@@ -10,21 +12,14 @@ protected:
     std::vector<Cellule> grille;
 
 public:
-    Grille() {}
+    Grille();
 
-    void ajouterCellule(const Cellule &cellule)
-    {
-        grille.push_back(cellule);
-    }
+    void ajouterCellule(const Cellule &cellule);
 
     // Afficher toutes les cellules de la grille
-    void afficherGrille() const
-    {
-        std::cout << "Contenu de la grille :" << std::endl;
-        for (const auto &cellule : grille)
-        {
-            cellule.afficher();
-        }
-    }
-    ~Grille() {}
+    void afficherGrille() const;
+
+    void sauvegarde(std::string file, int ordonnee, int taille_x, int taille_y);
+
+    ~Grille();
 };

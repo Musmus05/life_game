@@ -21,10 +21,20 @@ Cellule::Cellule()
 
 void Cellule::afficher() const
 {
-    cout << "Abscisse : " << x << endl << "Ordonnée : " << y << endl << "Status : " << status_cellule <<endl;;
+    cout << "Abscisse : " << x << endl
+         << "Ordonnée : " << y << endl
+         << "Status : " << status_cellule << endl;
+    ;
 }
 
 int Cellule::get_cpt()
 {
     return cpt;
 }
+
+bool Cellule::get_status()
+{
+    return this->status_cellule;
+}
+
+Cellule::~Cellule() { cpt--; }

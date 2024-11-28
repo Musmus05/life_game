@@ -25,6 +25,9 @@ int main()
     }
 
     //grille.afficherGrille();
+    //gestion de la sauvegarde
+    string nom_fichier = "Test.txt";
+    grille.sauvegarde(nom_fichier, ordonnee, abscisse, ordonnee);
 
     return 0;
 }
