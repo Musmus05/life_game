@@ -1,10 +1,14 @@
+#ifndef CELLULE_H
+#define CELLULE_H
+
 class Cellule
 {
-private:
-   int x,y; // stocke les coordonnees de la cellule
+protected:
+   int x, y; // stocke les coordonnees de la cellule
    bool statut_cellule; // stocke le statut de la cellule vivante ou morte
-
+   static int compteur;
 public:
+    Cellule(); 
     Cellule(int x, int y, bool status);
     /*---GETTERS---*/
     bool get_status(); // recupere le statut de la cellule (vivante/morte)
@@ -13,13 +17,8 @@ public:
 
     /*---SETTERS---*/
     void set_status(); // definir le statut de la cellule vivante ou morte
-    void set_x(); // definir la coordonnee en abscisse
-    void set_y();// definir la coordonnee en ordonne
-
-    virtual void set_taille_cellule(); // définir la taille de la cellule pour la représentation graphique
-
-    bool est_vivante(); // renvoie true si elle est vivante
-    bool est_morte(); // renvoie true si elle est morte
-
-    ~Cellule();
+    virtual ~Cellule(); // Make destructor virtual
+    int get_compteur();
 };
+
+#endif
