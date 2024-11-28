@@ -1,33 +1,30 @@
-#ifndef Grille_h
-#define Grille_h
+#pragma once
 
-#include <iostream>
-#include <vector>
-#include "Fichier.h"
 #include "Cellule.h"
+#include <vector>
+#include <iostream>
 
-class Cellule;
+class Grille
+{
+protected:
+    std::vector<Cellule> grille;
 
-class Grille {
-    protected:
-        int ligne;
-        int colonne;
-        vector<vector<Cellule>> matrice; // Matrice 2D pour stocker les données
-    public:
-        Grille();
-        void Grille_init();
-        virtual ~Grille();
-        virtual int get_ligne() = 0;
-        virtual void set_ligne(int ligne) = 0;
-        virtual int get_colonne() = 0;
-        virtual void set_colonne(int colonne)  = 0; 
-        virtual void afficher_grille() = 0;
-        virtual int ajouter(Cellule * cellule) = 0;
-        virtual int suprimmer(Cellule * cellule) = 0;
-        virtual void notify() = 0;
+public:
+    Grille() {}
 
+    void ajouterCellule(const Cellule &cellule)
+    {
+        grille.push_back(cellule);
+    }
+
+    // Afficher toutes les cellules de la grille
+    void afficherGrille() const
+    {
+        std::cout << "Contenu de la grille :" << std::endl;
+        for (const auto &cellule : grille)
+        {
+            cellule.afficher();
+        }
+    }
+    ~Grille() {}
 };
-
-
-
-#endif

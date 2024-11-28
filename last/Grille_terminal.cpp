@@ -30,6 +30,5 @@ void Grille_terminal::afficher_grille(){
         }
         cout << endl; // Saut de ligne après chaque ligne de la matrice
     }
-
 }
 

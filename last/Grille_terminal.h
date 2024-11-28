@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Grille.h"
+#include "Cellule.h"
 
 class Grille_terminal : public Grille
 {
