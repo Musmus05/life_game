@@ -14,18 +14,18 @@ void Fichier::lecture_fichier()
         return;
     }
 
-    // Lire la première ligne (dimensions)
+    //lecture de la premiere ligne pour recuperer les dimensions pour la creation de la matrice
     getline(nom_fichier, premiere_ligne);
 
-    // Extraire les dimensions de la première ligne
+    //extraction des dimensions de la premiere ligne
     stringstream fl(premiere_ligne);
     int abscisse, ordonnee;
     fl >> abscisse >> ordonnee;
 
-    // Redimensionner la matrice en fonction des dimensions lues
+    //redimensionner la matrice en fonction des dimensions lues et stockee dans premiere_ligne
     matrice.resize(abscisse, vector<bool>(ordonnee));
 
-    // Lire le reste du fichier pour remplir la matrice
+    //lire le reste du fichier pour remplir la matrice
     string ligne;
     for (int i = 0; i < abscisse; i++)
     {
@@ -35,37 +35,36 @@ void Fichier::lecture_fichier()
         {
             int valeur_temporaire;
             ligne_stringstream >> valeur_temporaire;
-            matrice[i][j] = (valeur_temporaire != 0); // Convertir en bool
+            matrice[i][j] = (valeur_temporaire != 0); //convertir la valeur recup en bool
         }
     }
-    nom_fichier.close();
+    nom_fichier.close(); //fermeture du fichier
 }
 
 int Fichier::abscisse()
 {
-    return matrice.size(); // Nombre de lignes
+    return matrice.size(); //nombre de lignes de la matrice
 }
 
 int Fichier::ordonnee()
 {
-    return matrice[0].size();
-    ; // Nombre de lignes
+    return matrice[0].size(); //nombre de colonnes de la matrice
 }
 bool Fichier::get_status(int i, int j) const
 {
-    return matrice[i][j];
+    return matrice[i][j]; //recuperation du status aux coordonnes (x,y)
 }
 
-// Afficher la taille de la matrice et son contenu
+//affichage de la taille de la matrice et de son contenu dans la console
 void Fichier::afficher_matrice()
 {
-    int abscisse = matrice.size();    // Nombre de lignes
-    int ordonnee = matrice[0].size(); // Nombre de colonnes
+    int abscisse = matrice.size();    //nombre de lignes
+    int ordonnee = matrice[0].size(); //nombre de colonnes
 
-    // Afficher les dimensions de la matrice
+    //dimensions de la matrice
     cout << "Dimensions de la matrice : " << abscisse << " lignes x " << ordonnee << " colonnes." << endl;
 
-    // Afficher le contenu de la matrice
+    //contenu de la matrice
     cout << "Contenu de la matrice : " << endl;
     for (int i = 0; i < abscisse; i++)
     {
@@ -73,6 +72,6 @@ void Fichier::afficher_matrice()
         {
             cout << matrice[i][j] << " ";
         }
-        cout << endl; // Saut de ligne après chaque ligne de la matrice
+        cout << endl; //saut de ligne apres chaque ligne de la matrice
     }
 }

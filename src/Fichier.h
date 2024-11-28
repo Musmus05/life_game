@@ -16,7 +16,7 @@ private:
 public:
     Fichier();
 
-    // Fonction pour lire le fichier et extraire les dimensions + les données de la matrice
+    //fonction pour lire le fichier et extraire les dimensions + les donnees de la matrice
     void lecture_fichier();
 
     /*---GETTERS---*/
@@ -24,7 +24,7 @@ public:
     int ordonnee();
     bool get_status(int i, int j) const;
 
-    // Afficher la taille de la matrice et son contenu
+    //afficher la taille de la matrice et son contenu
     void afficher_matrice();
 };
 
