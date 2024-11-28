@@ -26,7 +26,7 @@ void Grille_terminal::afficher_grille(){
     {
         for (int j = 0; j < colonne; j++)
         {
-            cout << matrice[i][j] << " ";
+            cout << matrice[i][j].get_status() << " ";
         }
         cout << endl; // Saut de ligne après chaque ligne de la matrice
     }

@@ -10,7 +10,7 @@ Grille::~Grille() {
 }
 
 void Grille::Grille_init(){
-    Fichier lecture;
+    Fichier <Cellule> lecture;
     lecture.lecture_fichier();
     this->ligne = lecture.get_ligne();
     this->colonne = lecture.get_colonne();
