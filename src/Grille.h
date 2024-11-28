@@ -13,6 +13,7 @@ class Grille {
         int ligne;
         int colonne;
         vector<vector<Cellule>> matrice; // Matrice 2D pour stocker les données
+        int compteur;
     public:
         Grille();
         void Grille_init();
@@ -22,10 +23,7 @@ class Grille {
         virtual int get_colonne() = 0;
         virtual void set_colonne(int colonne)  = 0; 
         virtual void afficher_grille() = 0;
-        virtual int ajouter(Cellule * cellule) = 0;
-        virtual int suprimmer(Cellule * cellule) = 0;
         virtual void notify() = 0;
-
 };
 
 
