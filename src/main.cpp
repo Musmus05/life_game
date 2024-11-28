@@ -10,7 +10,17 @@ int main()
     Grille *grille;
     grille = new Grille_terminal(); 
     grille->afficher_grille();
-    Cellule cellule;
-    std::cout << cellule.get_compteur() << std::endl;
+    cout << endl;
+    grille->notify();
+    grille->afficher_grille();
+    cout << endl;
+    grille->notify();
+    grille->afficher_grille();
+    cout << endl;
+    grille->notify();
+    grille->afficher_grille();
+    cout << endl;
+    grille->notify();
+    grille->afficher_grille();
     return 0;
 }

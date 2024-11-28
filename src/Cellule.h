@@ -14,11 +14,10 @@ public:
     bool get_status(); // recupere le statut de la cellule (vivante/morte)
     int get_x(); // recupere l'abscisse de la cellule
     int get_y(); // recupere l'ordonnee de la cellule
-
+    int get_compteur();
     /*---SETTERS---*/
     void set_status(); // definir le statut de la cellule vivante ou morte
     virtual ~Cellule(); // Make destructor virtual
-    int get_compteur();
 };
 
 #endif

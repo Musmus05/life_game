@@ -33,3 +33,39 @@ void Grille_terminal::afficher_grille(){
 
 }
 
+void Grille_terminal::notify() {
+    // Créer une copie de la matrice pour stocker les nouveaux états
+    vector<vector<Cellule>> nouvelle_matrice = matrice;
+
+    for (int i = 0; i < ligne; i++) { // Parcourir chaque cellule de la matrice
+        for (int j = 0; j < colonne; j++) { 
+            int somme = 0;
+
+            // Vérifier les 8 voisins dans une grille torique
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (x == 0 && y == 0) continue; // Ignorer la cellule elle-même on passe à la porchaine boucle
+                    int ni = (i + x + ligne) % ligne; // Gestion torique pour les lignes
+                    int nj = (j + y + colonne) % colonne; // Gestion torique pour les colonnes
+                    if (matrice[ni][nj].get_status() == 1) {
+                        somme++;
+                    }
+                }
+            }
+
+            // Appliquer les règles du jeu de la vie
+            if (matrice[i][j].get_status() == 1) { // Cellule vivante
+                if (somme < 2 || somme > 3) {  // que les cellules vivantes avec 2 ou 3 voisins vivants survivent
+                    nouvelle_matrice[i][j].set_status(); 
+                }
+            } else {
+                if (somme == 3) { // Règle 4
+                    nouvelle_matrice[i][j].set_status(); 
+                }
+            }
+        }
+    }
+
+    // Mettre à jour la matrice avec les nouveaux états
+    matrice = nouvelle_matrice;
+}
