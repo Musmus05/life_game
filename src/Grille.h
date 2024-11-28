@@ -14,6 +14,8 @@ class Grille {
         int colonne;
         vector<vector<Cellule>> matrice; // Matrice 2D pour stocker les données
         int compteur;
+        int compteur_cellule_morte;
+        int compteur_cellule_vivante;
     public:
         Grille();
         void Grille_init();
@@ -24,6 +26,9 @@ class Grille {
         virtual void set_colonne(int colonne)  = 0; 
         virtual void afficher_grille() = 0;
         virtual void notify() = 0;
+        virtual int calcule_compteur_cellule() = 0;
+        virtual int calcule_compteur_cellule_morte() = 0;
+        virtual int calcule_compteur_cellule_vivante() = 0;
 };
 
 

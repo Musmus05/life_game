@@ -69,3 +69,37 @@ void Grille_terminal::notify() {
     // Mettre à jour la matrice avec les nouveaux états
     matrice = nouvelle_matrice;
 }
+
+int Grille_terminal::calcule_compteur_cellule(){
+   return this->compteur = this->ligne * this->colonne;
+}
+
+int Grille_terminal::calcule_compteur_cellule_morte(){
+    this->compteur_cellule_morte = 0;
+    for (int i = 0; i < ligne; i++)
+    {
+        for (int j = 0; j < colonne; j++)
+        {
+            if (matrice[i][j].get_status() == 0)
+            {
+                this->compteur_cellule_morte++;
+            }
+        }
+    }
+    return this->compteur_cellule_morte;
+}
+
+int Grille_terminal::calcule_compteur_cellule_vivante(){
+    this->compteur_cellule_vivante = 0;
+    for (int i = 0; i < ligne; i++)
+    {
+        for (int j = 0; j < colonne; j++)
+        {
+            if (matrice[i][j].get_status() == 1)
+            {
+                this->compteur_cellule_vivante++;
+            }
+        }
+    }
+    return this->compteur_cellule_vivante;
+}

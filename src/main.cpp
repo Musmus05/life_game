@@ -6,7 +6,7 @@
 
 
 int main()
-{
+{   
     Grille *grille;
     grille = new Grille_terminal(); 
     grille->afficher_grille();

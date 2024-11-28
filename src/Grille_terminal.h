@@ -18,6 +18,10 @@ public:
     int ajouter(Cellule *cellule);
     int suprimmer(Cellule *cellule);
     void notify();
+    int calcule_compteur_cellule();
+    int calcule_compteur_cellule_morte();
+    int calcule_compteur_cellule_vivante();
+
 };
 
 #endif
