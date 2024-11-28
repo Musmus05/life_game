@@ -32,3 +32,4 @@ void Grille_terminal::afficher_grille(){
     }
 
 }
+

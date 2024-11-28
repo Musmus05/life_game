@@ -15,6 +15,9 @@ class Grille_terminal : public Grille {
         int get_colonne();
         void set_colonne(int y);
         void afficher_grille();
+        int ajouter() ;
+        int suprimmer() ;
+        void notify() ;
 };
 
 #endif
