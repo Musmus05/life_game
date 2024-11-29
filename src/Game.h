@@ -1,6 +1,5 @@
 #include "Fichier.h"
 #include "Grille.h"
-#include "Cellule.h"
 
 class Game
 {
