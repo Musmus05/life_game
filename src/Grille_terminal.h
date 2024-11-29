@@ -17,7 +17,7 @@ public:
     void afficher_grille();
     int ajouter(Cellule *cellule);
     int suprimmer(Cellule *cellule);
-    void notify();
+    void Grille_update();
     int calcule_compteur_cellule();
     int calcule_compteur_cellule_morte();
     int calcule_compteur_cellule_vivante();

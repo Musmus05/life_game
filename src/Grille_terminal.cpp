@@ -22,18 +22,17 @@ void Grille_terminal::set_colonne(int y){
 
 
 void Grille_terminal::afficher_grille(){
-        for (int i = 0; i < ligne; i++)
-    {
+        for (int i = 0; i < ligne; i++) {
         for (int j = 0; j < colonne; j++)
         {
             cout << matrice[i][j].get_status() << " ";
         }
         cout << endl; // Saut de ligne après chaque ligne de la matrice
     }
-
+    cout << endl; // Saut de ligne après l'affichage de la matrice
 }
 
-void Grille_terminal::notify() {
+void Grille_terminal::Grille_update() { 
     // Créer une copie de la matrice pour stocker les nouveaux états
     vector<vector<Cellule>> nouvelle_matrice = matrice;
 
@@ -45,9 +44,9 @@ void Grille_terminal::notify() {
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
                     if (x == 0 && y == 0) continue; // Ignorer la cellule elle-même on passe à la porchaine boucle
-                    int ni = (i + x + ligne) % ligne; // Gestion torique pour les lignes
-                    int nj = (j + y + colonne) % colonne; // Gestion torique pour les colonnes
-                    if (matrice[ni][nj].get_status() == 1) {
+                    int voisin_i = (i + x + ligne) % ligne; // Gestion torique pour les lignes
+                    int voisin_j = (j + y + colonne) % colonne; // Gestion torique pour les colonnes
+                    if (matrice[voisin_i][voisin_j].get_status() == 1) {
                         somme++;
                     }
                 }
@@ -56,11 +55,11 @@ void Grille_terminal::notify() {
             // Appliquer les règles du jeu de la vie
             if (matrice[i][j].get_status() == 1) { // Cellule vivante
                 if (somme < 2 || somme > 3) {  // que les cellules vivantes avec 2 ou 3 voisins vivants survivent
-                    nouvelle_matrice[i][j].set_status(); 
+                    nouvelle_matrice[i][j].status_update(); 
                 }
             } else {
                 if (somme == 3) { // Règle 4
-                    nouvelle_matrice[i][j].set_status(); 
+                    nouvelle_matrice[i][j].status_update(); 
                 }
             }
         }

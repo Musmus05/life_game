@@ -1,26 +1,14 @@
 #include "Fichier.h"
 #include "Grille.h"
 #include "Grille_terminal.h"
+#include "Jeux_vie.h"
 
 
 
 
 int main()
 {   
-    Grille *grille;
-    grille = new Grille_terminal(); 
-    grille->afficher_grille();
-    cout << endl;
-    grille->notify();
-    grille->afficher_grille();
-    cout << endl;
-    grille->notify();
-    grille->afficher_grille();
-    cout << endl;
-    grille->notify();
-    grille->afficher_grille();
-    cout << endl;
-    grille->notify();
-    grille->afficher_grille();
+    Jeux_vie jeux_vie;
+    jeux_vie.run();
     return 0;
 }

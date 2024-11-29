@@ -15,7 +15,7 @@ public:
     int get_x(); // recupere l'abscisse de la cellule
     int get_y(); // recupere l'ordonnee de la cellule
         /*---SETTERS---*/
-    void set_status(); // definir le statut de la cellule vivante ou morte
+    void status_update(); // definir le statut de la cellule vivante ou morte
     virtual ~Cellule(); // Make destructor virtual
 };
 

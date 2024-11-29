@@ -20,7 +20,7 @@ int Cellule::get_y(){
     return y;
 }
 
-void Cellule::set_status(){
+void Cellule::status_update(){
     statut_cellule = !statut_cellule;
 }
 
