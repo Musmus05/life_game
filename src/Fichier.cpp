@@ -4,9 +4,9 @@ using namespace std;
 
 Fichier::Fichier() {}
 
-void Fichier::lecture_fichier()
+void Fichier::lecture_fichier(string filename)
 {
-    ifstream nom_fichier("data.txt");
+    ifstream nom_fichier(filename);
 
     if (!nom_fichier.is_open())
     {
@@ -14,18 +14,18 @@ void Fichier::lecture_fichier()
         return;
     }
 
-    //lecture de la premiere ligne pour recuperer les dimensions pour la creation de la matrice
+    // lecture de la premiere ligne pour recuperer les dimensions pour la creation de la matrice
     getline(nom_fichier, premiere_ligne);
 
-    //extraction des dimensions de la premiere ligne
+    // extraction des dimensions de la premiere ligne
     stringstream fl(premiere_ligne);
     int abscisse, ordonnee;
     fl >> abscisse >> ordonnee;
 
-    //redimensionner la matrice en fonction des dimensions lues et stockee dans premiere_ligne
-    matrice.resize(abscisse, vector<bool>(ordonnee));
+    // redimensionner la matrice en fonction des dimensions lues et stockee dans premiere_ligne
+    matrice.resize(abscisse, vector<int>(ordonnee));
 
-    //lire le reste du fichier pour remplir la matrice
+    // lire le reste du fichier pour remplir la matrice
     string ligne;
     for (int i = 0; i < abscisse; i++)
     {
@@ -35,36 +35,36 @@ void Fichier::lecture_fichier()
         {
             int valeur_temporaire;
             ligne_stringstream >> valeur_temporaire;
-            matrice[i][j] = (valeur_temporaire != 0); //convertir la valeur recup en bool
+            matrice[i][j] = valeur_temporaire; // Assigner directement l'entier
         }
     }
-    nom_fichier.close(); //fermeture du fichier
+    nom_fichier.close(); // fermeture du fichier
 }
 
 int Fichier::abscisse()
 {
-    return matrice.size(); //nombre de lignes de la matrice
+    return matrice.size(); // nombre de lignes de la matrice
 }
 
 int Fichier::ordonnee()
 {
-    return matrice[0].size(); //nombre de colonnes de la matrice
+    return matrice[0].size(); // nombre de colonnes de la matrice
 }
-bool Fichier::get_status(int i, int j) const
+int Fichier::get_status(int i, int j) const
 {
-    return matrice[i][j]; //recuperation du status aux coordonnes (x,y)
+    return matrice[i][j]; // recuperation du status aux coordonnes (x,y)
 }
 
-//affichage de la taille de la matrice et de son contenu dans la console
+// affichage de la taille de la matrice et de son contenu dans la console
 void Fichier::afficher_matrice()
 {
-    int abscisse = matrice.size();    //nombre de lignes
-    int ordonnee = matrice[0].size(); //nombre de colonnes
+    int abscisse = matrice.size();    // nombre de lignes
+    int ordonnee = matrice[0].size(); // nombre de colonnes
 
-    //dimensions de la matrice
+    // dimensions de la matrice
     cout << "Dimensions de la matrice : " << abscisse << " lignes x " << ordonnee << " colonnes." << endl;
 
-    //contenu de la matrice
+    // contenu de la matrice
     cout << "Contenu de la matrice : " << endl;
     for (int i = 0; i < abscisse; i++)
     {
@@ -72,6 +72,6 @@ void Fichier::afficher_matrice()
         {
             cout << matrice[i][j] << " ";
         }
-        cout << endl; //saut de ligne apres chaque ligne de la matrice
+        cout << endl; // saut de ligne apres chaque ligne de la matrice
     }
 }
