@@ -16,11 +16,12 @@ private:
     int nombre_generation;
     int generation;
     int choix;
+    Fichier sortie;
 public:
     Jeux_vie();
     Jeux_vie(int choix,int nombre_generation);
     void menu();
-    void run();
+    void run();  
     int get_generation();
     ~Jeux_vie();
 };

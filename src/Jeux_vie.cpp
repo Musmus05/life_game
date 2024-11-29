@@ -36,6 +36,8 @@ void Jeux_vie::menu()
 
 void Jeux_vie::run()
 {
+    sortie.supprimer_dossier();
+    sortie.creer_dossier();
     for (int i = 0; i < nombre_generation; i++)
     {
         grille->afficher_grille();
@@ -46,6 +48,8 @@ void Jeux_vie::run()
         cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
         cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
         cout << "====================" << endl;
+        sortie.ecriture_fichier(grille->get_matrice(), generation);
+
     }
 }
 
@@ -58,3 +62,4 @@ Jeux_vie::~Jeux_vie()
 {
     delete grille;
 }
+

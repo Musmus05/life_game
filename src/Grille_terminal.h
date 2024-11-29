@@ -21,6 +21,7 @@ public:
     int calcule_compteur_cellule();
     int calcule_compteur_cellule_morte();
     int calcule_compteur_cellule_vivante();
+    vector<vector<Cellule>> get_matrice();
 
 };
 

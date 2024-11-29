@@ -102,3 +102,7 @@ int Grille_terminal::calcule_compteur_cellule_vivante(){
     }
     return this->compteur_cellule_vivante;
 }
+
+vector<vector<Cellule>> Grille_terminal::get_matrice(){
+    return matrice;
+}

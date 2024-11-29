@@ -24,6 +24,7 @@ class Grille {
         virtual void set_ligne(int ligne) = 0;
         virtual int get_colonne() = 0;
         virtual void set_colonne(int colonne)  = 0; 
+        virtual vector<vector<Cellule>> get_matrice() = 0;
         virtual void afficher_grille() = 0;
         virtual void Grille_update() = 0;
         virtual int calcule_compteur_cellule() = 0;
