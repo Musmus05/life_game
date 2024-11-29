@@ -53,7 +53,7 @@ vector<vector<int>> Fichier::get_matrice(){
 
 void Fichier::ecriture_fichier(vector<vector<Cellule>> matrice, int revision)
 {
-    ofstream nom_fichier("Sortie_sauvegarde/revision_" + to_string(revision) + ".txt");
+    ofstream nom_fichier("Sortie_sauvegarde/data_out_" + to_string(revision) + ".txt");
 
     if (!nom_fichier.is_open())
     {
