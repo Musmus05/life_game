@@ -19,3 +19,97 @@ int Grille_graphique::get_colonne(){
 void Grille_graphique::set_colonne(int y){
     this->colonne = y;
 }
+
+void Grille_graphique::afficher_grille(){
+    sf::RenderWindow window(sf::VideoMode(1000,1000), "Game of Life");
+    window.clear();
+    for(int i = 0; i < this->ligne; i++){
+        for(int j = 0; j < this->colonne; j++){
+            if(this->matrice[i][j].get_status() == 1){
+                sf::RectangleShape rectangle(sf::Vector2f(10, 10));
+                rectangle.setFillColor(sf::Color::Black);
+                rectangle.setPosition(j*10, i*10);
+                window.draw(rectangle);
+            }
+            else{
+                sf::RectangleShape rectangle(sf::Vector2f(10, 10));
+                rectangle.setFillColor(sf::Color::White);
+                rectangle.setPosition(j*10, i*10);
+                window.draw(rectangle);
+            }
+        }
+    }
+    window.display();
+}
+
+void Grille_graphique::Grille_update() { 
+    // Créer une copie de la matrice pour stocker les nouveaux états
+    vector<vector<Cellule>> nouvelle_matrice = matrice;
+
+    for (int i = 0; i < ligne; i++) { // Parcourir chaque cellule de la matrice
+        for (int j = 0; j < colonne; j++) { 
+            int somme = 0;
+
+            // Vérifier les 8 voisins dans une grille torique
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (x == 0 && y == 0) continue; // Ignorer la cellule elle-même on passe à la porchaine boucle
+                    int voisin_i = (i + x + ligne) % ligne; // Gestion torique pour les lignes
+                    int voisin_j = (j + y + colonne) % colonne; // Gestion torique pour les colonnes
+                    if (matrice[voisin_i][voisin_j].get_status() == 1) {
+                        somme++;
+                    }
+                }
+            }
+
+            // Appliquer les règles du jeu de la vie
+            if (matrice[i][j].get_status() == 1) { // Cellule vivante
+                if (somme < 2 || somme > 3) {  // que les cellules vivantes avec 2 ou 3 voisins vivants survivent
+                    nouvelle_matrice[i][j].status_update(); 
+                }
+            } else {
+                if (somme == 3) { // Règle 4
+                    nouvelle_matrice[i][j].status_update(); 
+                }
+            }
+        }
+    }
+}
+
+int Grille_graphique::calcule_compteur_cellule(){
+    return this->compteur = this->ligne * this->colonne;
+}
+
+int Grille_graphique::calcule_compteur_cellule_morte(){
+    this->compteur_cellule_morte = 0;
+    for (int i = 0; i < ligne; i++)
+    {
+        for (int j = 0; j < colonne; j++)
+        {
+            if (matrice[i][j].get_status() == 0)
+            {
+                this->compteur_cellule_morte++;
+            }
+        }
+    }
+    return this->compteur_cellule_morte;
+}
+
+int Grille_graphique::calcule_compteur_cellule_vivante(){
+    this->compteur_cellule_vivante = 0;
+    for (int i = 0; i < ligne; i++)
+    {
+        for (int j = 0; j < colonne; j++)
+        {
+            if (matrice[i][j].get_status() == 1)
+            {
+                this->compteur_cellule_vivante++;
+            }
+        }
+    }
+    return this->compteur_cellule_vivante;
+}
+
+vector<vector<Cellule>> Grille_graphique::get_matrice(){
+    return this->matrice;
+}

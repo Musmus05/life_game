@@ -21,6 +21,9 @@ class Grille_graphique : public Grille {
         int calcule_compteur_cellule();
         int calcule_compteur_cellule_morte();
         int calcule_compteur_cellule_vivante();
+        // void afficher_compteur_cellule();
+        // void afficher_compteur_cellule_morte();
+        // void afficher_compteur_cellule_vivante();
         vector<vector<Cellule>> get_matrice();
    
 };
