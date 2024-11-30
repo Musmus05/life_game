@@ -5,6 +5,7 @@
 #include <vector>
 #include "SFML/Graphics.hpp"
 #include "Grille.h"
+#include "Cellule.h"
 
 
 class Grille_graphique : public Grille {
@@ -16,6 +17,12 @@ class Grille_graphique : public Grille {
         int get_colonne();
         void set_colonne(int y);
         void afficher_grille();
+        void Grille_update();
+        int calcule_compteur_cellule();
+        int calcule_compteur_cellule_morte();
+        int calcule_compteur_cellule_vivante();
+        vector<vector<Cellule>> get_matrice();
+   
 };
 
 #endif
