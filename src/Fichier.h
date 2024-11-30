@@ -19,7 +19,7 @@ private:
 public:
     Fichier();
     Fichier(std::string filename);
-    void lecture_fichier(std::string filename);
+    vector<vector<int>> lecture_fichier(std::string filename);
     int get_ligne();
     std::string get_nom() const;
     int get_colonne();

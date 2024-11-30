@@ -27,7 +27,7 @@ Jeux_vie::Jeux_vie()
     cout << "Combien de fichiers voulez-vous examiner pour vérifier la répétition des dernières générations : ";
     cin >> nombre_dernier_fichier;
 
-    //redimensionnement du vecteur
+    // redimensionnement du vecteur
     fichiers_recents.resize(nombre_dernier_fichier);
 }
 
@@ -43,13 +43,13 @@ void Jeux_vie::menu()
 void Jeux_vie::run()
 {
     string nom_fichier_sortie;
-    sortie.supprimer_dossier(); //sup les anciens fichiers
+    sortie.supprimer_dossier(); // sup les anciens fichiers
 
     for (int i = 0; i < nombre_generation; i++)
     {
         grille->afficher_grille();
 
-        //informations sur la grille
+        // informations sur la grille
         cout << "Generation : " << this->generation << endl;
         cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
         cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
@@ -59,7 +59,7 @@ void Jeux_vie::run()
         grille->Grille_update();
         generation++;
 
-        //recup du nom du fichier genere
+        // recup du nom du fichier genere
         nom_fichier_sortie = sortie.ecriture_fichier(grille->get_matrice(), generation); // on recup le nom du fichier
 
         // Déplacement des fichiers dans la liste récents
@@ -67,41 +67,10 @@ void Jeux_vie::run()
         {
             fichiers_recents[j] = fichiers_recents[j - 1];
         }
-
         // Ajout du nouveau fichier à la première position
-        fichiers_recents[0] = Fichier(nom_fichier_sortie); // ajout dun nouveau fichier vide
+        fichiers_recents[0] = nom_fichier_sortie; // ajout dun nouveau fichier vide
 
-        // cout << "Fichiers à examiner : " << endl; //on parcourt le vector pour afficher le contenu des fichiers a examiner
-        int compteur = 0;
-        if (generation > fichiers_recents.size())
-        {
-            for (int i = 0; i < fichiers_recents.size() - 1; i++)
-            {
-                if (fichiers_recents[i].get_matrice() == fichiers_recents[i + 1].get_matrice())
-                {
-                    compteur++;
-                }
-                else
-                {
-                    compteur = 0;
-                }
-            }
-        }
-        if (compteur == fichiers_recents.size() - 1)
-        {
-            grille->afficher_grille();
-            cout << "Generation : " << this->generation << endl;
-            cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
-            cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
-            cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
-            cout << "====================" << endl;
-            cout << "Il y a " << compteur + 1 << " generation identique. Arrêt du programme." << endl;
-            exit(0);
-        }
-        else
-        {
-            cout << "Aucune répétition de génération" << endl;
-        }
+        verif_generation_successive(); //methode pour verif si les generation successice sont les memes
     }
 }
 
@@ -112,5 +81,42 @@ int Jeux_vie::get_generation()
 
 Jeux_vie::~Jeux_vie()
 {
-    delete grille; //libere la memoire
+    delete grille; // libere la memoire
+}
+
+void Jeux_vie::verif_generation_successive()
+{
+    int compteur = 0;
+    if (generation > fichiers_recents.size())
+    {
+        for (int i = 0; i < fichiers_recents.size() - 1; i++)
+        {
+            Fichier file1;
+            Fichier file2;
+
+            if (file1.lecture_fichier(fichiers_recents[i]) == file2.lecture_fichier(fichiers_recents[i + 1]))
+            {
+                compteur++;
+            }
+            else
+            {
+                compteur = 0;
+            }
+        }
+    }
+    if (compteur == fichiers_recents.size() - 1)
+    {
+        grille->afficher_grille();
+        cout << "Generation : " << this->generation << endl;
+        cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
+        cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
+        cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
+        cout << "====================" << endl;
+        cout << "Il y a " << compteur + 1 << " generation identique. Arrêt du programme." << endl;
+        exit(0);
+    }
+    else
+    {
+        cout << "Aucune répétition de génération" << endl;
+    }
 }

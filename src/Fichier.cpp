@@ -5,14 +5,14 @@ Fichier::Fichier() {}
 
 Fichier::Fichier(string filename) {this->filename = filename;}
 
-void Fichier::lecture_fichier(string filename)
+vector<vector<int>> Fichier::lecture_fichier(string filename)
 {
     ifstream nom_fichier(filename);
 
     if (!nom_fichier.is_open())
     {
         cout << "Erreur d'ouverture de fichier !" << endl;
-        return;
+        return matrice;
     }
 
     // Lire la première ligne (dimensions)
@@ -37,7 +37,7 @@ void Fichier::lecture_fichier(string filename)
             reste_ligne_stringstream >> matrice[i][j];
         }
     }
-
+    return matrice;
     nom_fichier.close();
 }
 
