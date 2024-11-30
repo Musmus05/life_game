@@ -10,8 +10,11 @@ Grille::~Grille() {
 }
 
 void Grille::Grille_init() {
-    Fichier fichier;
-    fichier.lecture_fichier();
+    string filename;
+    cout << "Nom du fichier : ";
+    cin >> filename;
+    Fichier fichier(filename);
+    fichier.lecture_fichier(filename);
     ligne = fichier.get_ligne();
     colonne = fichier.get_colonne();
     matrice.resize(ligne, vector<Cellule>(colonne));
