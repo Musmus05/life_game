@@ -20,27 +20,43 @@ void Grille_graphique::set_colonne(int y){
     this->colonne = y;
 }
 
-void Grille_graphique::afficher_grille(){
-    sf::RenderWindow window(sf::VideoMode(1000,1000), "Game of Life");
-    window.clear();
-    for(int i = 0; i < this->ligne; i++){
-        for(int j = 0; j < this->colonne; j++){
-            if(this->matrice[i][j].get_status() == 1){
-                sf::RectangleShape rectangle(sf::Vector2f(10, 10));
-                rectangle.setFillColor(sf::Color::Black);
-                rectangle.setPosition(j*10, i*10);
-                window.draw(rectangle);
+
+void Grille_graphique::afficher_grille() {
+    // Créer une fenêtre SFML pour afficher la grille
+    sf::RenderWindow window(sf::VideoMode(window_colonne, window_ligne), "Jeu de la vie");
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
             }
-            else{
-                sf::RectangleShape rectangle(sf::Vector2f(10, 10));
-                rectangle.setFillColor(sf::Color::White);
-                rectangle.setPosition(j*10, i*10);
+        }
+
+        window.clear(sf::Color::White); 
+
+        for (int i = 0; i < this->ligne; i++) {
+            for (int j = 0; j < this->colonne; j++) {
+                sf::RectangleShape rectangle(sf::Vector2f(cellule_taille, cellule_taille));
+                rectangle.setPosition(j * cellule_taille, i * cellule_taille);
+                if (this->matrice[i][j].get_status() == 1) {
+                    rectangle.setFillColor(sf::Color::Black);
+                } else {
+                    rectangle.setFillColor(sf::Color::White);
+                }
                 window.draw(rectangle);
             }
         }
+
+        window.display(); // Afficher le contenu de la fenêtre
+
+        Grille_update(); // Mettre à jour la grille
+        // Attendre un court instant avant la prochaine mise à jour
+        sf::sleep(sf::milliseconds(500));
     }
-    window.display();
 }
+
+
 
 void Grille_graphique::Grille_update() { 
     // Créer une copie de la matrice pour stocker les nouveaux états

@@ -10,6 +10,7 @@ Jeux_vie::Jeux_vie()
         grille = new Grille_terminal();
         break;
     case 2:
+        grille = new Grille_graphique();
         break;
     case 3:
         exit(0);
@@ -37,19 +38,24 @@ void Jeux_vie::menu()
 void Jeux_vie::run()
 {
     sortie.supprimer_dossier();
-    sortie.creer_dossier();
+    if (choix == 2)
+    {
+        grille->afficher_grille();
+    }
+    else{
     for (int i = 0; i < nombre_generation; i++)
     {
         grille->afficher_grille();
-        grille->Grille_update();
-        generation++;
         cout << "Generation : " << this->generation << endl;
         cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
         cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
         cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
         cout << "====================" << endl;
+        grille->Grille_update();
+        generation++;
         sortie.ecriture_fichier(grille->get_matrice(), generation);
 
+    }
     }
 }
 

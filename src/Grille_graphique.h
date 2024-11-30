@@ -9,6 +9,10 @@
 
 
 class Grille_graphique : public Grille {
+    private:
+        int cellule_taille = 10;
+        int window_colonne = this->colonne * cellule_taille;
+        int window_ligne = this->ligne * cellule_taille;
     public:
         Grille_graphique();
         ~Grille_graphique();
