@@ -8,6 +8,9 @@ Jeux_vie::Jeux_vie()
     {
     case 1:
         grille = new Grille_terminal();
+        cout << "Nombre de generation : ";
+        cin >> this->nombre_generation;
+        generation = 0;
         break;
     case 2:
         grille = new Grille_graphique();
@@ -20,9 +23,6 @@ Jeux_vie::Jeux_vie()
         exit(0);
         break;
     }
-    cout << "Nombre de generation : ";
-    cin >> this->nombre_generation;
-    generation = 0;
 }
 
 

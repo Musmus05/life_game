@@ -32,21 +32,19 @@ void Grille_graphique::afficher_grille() {
                 window.close();
             }
         }
-
         window.clear(sf::Color::White); 
-
-        for (int i = 0; i < this->ligne; i++) {
-            for (int j = 0; j < this->colonne; j++) {
-                sf::RectangleShape rectangle(sf::Vector2f(cellule_taille, cellule_taille));
-                rectangle.setPosition(j * cellule_taille, i * cellule_taille);
-                if (this->matrice[i][j].get_status() == 1) {
-                    rectangle.setFillColor(sf::Color::Black);
-                } else {
-                    rectangle.setFillColor(sf::Color::White);
+            for (int i = 0; i < this->ligne; i++) {
+                for (int j = 0; j < this->colonne; j++) {
+                    sf::RectangleShape rectangle(sf::Vector2f(cellule_taille, cellule_taille));
+                    rectangle.setPosition(j * cellule_taille, i * cellule_taille);
+                    if (this->matrice[i][j].get_status() == 1) {
+                        rectangle.setFillColor(sf::Color::Black);
+                    } else {
+                        rectangle.setFillColor(sf::Color::White);
+                    }
+                    window.draw(rectangle);
                 }
-                window.draw(rectangle);
             }
-        }
 
         window.display(); // Afficher le contenu de la fenêtre
 
@@ -90,6 +88,8 @@ void Grille_graphique::Grille_update() {
             }
         }
     }
+     matrice = nouvelle_matrice;
+
 }
 
 int Grille_graphique::calcule_compteur_cellule(){
