@@ -115,8 +115,4 @@ void Jeux_vie::verif_generation_successive()
         cout << "Il y a " << compteur + 1 << " generation identique. Arrêt du programme." << endl;
         exit(0);
     }
-    else
-    {
-        cout << "Aucune répétition de génération" << endl;
-    }
 }
