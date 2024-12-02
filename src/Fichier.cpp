@@ -1,15 +1,18 @@
 #include "Fichier.h"
 
+using namespace std;
 Fichier::Fichier() {}
 
-void Fichier::lecture_fichier()
+Fichier::Fichier(string filename) {this->filename = filename;}
+
+vector<vector<int>> Fichier::lecture_fichier(string filename)
 {
-    ifstream nom_fichier("data.txt");
+    ifstream nom_fichier(filename);
 
     if (!nom_fichier.is_open())
     {
         cout << "Erreur d'ouverture de fichier !" << endl;
-        return;
+        return matrice;
     }
 
     // Lire la première ligne (dimensions)
@@ -34,7 +37,7 @@ void Fichier::lecture_fichier()
             reste_ligne_stringstream >> matrice[i][j];
         }
     }
-
+    return matrice;
     nom_fichier.close();
 }
 
@@ -51,20 +54,21 @@ vector<vector<int>> Fichier::get_matrice(){
     return matrice;
 }
 
-void Fichier::ecriture_fichier(vector<vector<Cellule>> matrice, int revision)
+string Fichier::ecriture_fichier(vector<vector<Cellule>> matrice, int revision) //modif du type pour renvoyer le nom du fichier
 {
-    ofstream nom_fichier("Sortie_sauvegarde/data_out_" + to_string(revision) + ".txt");
+    string filename = "Sortie_sauvegarde/data_out_" + to_string(revision) + ".txt";
+    ofstream nom_fichier(filename);
 
     if (!nom_fichier.is_open())
     {
         cout << "Erreur d'ouverture de fichier !" << endl;
-        return;
+        return ""; //modif pour quand meme arrete le pro
     }
 
-    // Ecrire les dimensions de la grille
+    //ecriture de la taille de la grille
     nom_fichier << matrice.size() << " " << matrice[0].size() << endl;
 
-    // Ecrire les valeurs de la grille
+    //ecriture du contenu de la grille
     for (int i = 0; i < matrice.size(); i++)
     {
         for (int j = 0; j < matrice[0].size(); j++)
@@ -73,8 +77,8 @@ void Fichier::ecriture_fichier(vector<vector<Cellule>> matrice, int revision)
         }
         nom_fichier << endl;
     }
-
     nom_fichier.close();
+    return filename;//on retourn le nom du fichier
 }
 
 void Fichier::supprimer_dossier()
@@ -86,4 +90,8 @@ void Fichier::supprimer_dossier()
 void Fichier::creer_dossier()
 {
     system("mkdir Sortie_sauvegarde");
+}
+
+string Fichier::get_nom() const {
+    return filename;
 }
