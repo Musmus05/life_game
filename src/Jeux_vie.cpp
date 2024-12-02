@@ -8,8 +8,18 @@ Jeux_vie::Jeux_vie()
     {
     case 1:
         grille = new Grille_terminal();
+        cout << "Nombre de génération : ";
+        cin >> this->nombre_generation;
+        generation = 0;
+
+        cout << "Combien de fichiers voulez-vous examiner pour vérifier la répétition des dernières générations : ";
+        cin >> nombre_dernier_fichier;
+
+        // redimensionnement du vecteur
+        fichiers_recents.resize(nombre_dernier_fichier);
         break;
     case 2:
+        grille = new Grille_graphique();
         break;
     case 3:
         exit(0);
@@ -19,16 +29,6 @@ Jeux_vie::Jeux_vie()
         exit(0);
         break;
     }
-
-    cout << "Nombre de génération : ";
-    cin >> this->nombre_generation;
-    generation = 0;
-
-    cout << "Combien de fichiers voulez-vous examiner pour vérifier la répétition des dernières générations : ";
-    cin >> nombre_dernier_fichier;
-
-    // redimensionnement du vecteur
-    fichiers_recents.resize(nombre_dernier_fichier);
 }
 
 void Jeux_vie::menu()
@@ -44,33 +44,39 @@ void Jeux_vie::run()
 {
     string nom_fichier_sortie;
     sortie.supprimer_dossier(); // sup les anciens fichiers
-
-    for (int i = 0; i < nombre_generation; i++)
+    if (choix == 2)
     {
         grille->afficher_grille();
-
-        // informations sur la grille
-        cout << "Generation : " << this->generation << endl;
-        cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
-        cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
-        cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
-        cout << "====================" << endl;
-
-        grille->Grille_update();
-        generation++;
-
-        // recup du nom du fichier genere
-        nom_fichier_sortie = sortie.ecriture_fichier(grille->get_matrice(), generation); // on recup le nom du fichier
-
-        // Déplacement des fichiers dans la liste récents
-        for (int j = nombre_dernier_fichier - 1; j > 0; j--)
+    }
+    else
+    {
+        for (int i = 0; i < nombre_generation; i++)
         {
-            fichiers_recents[j] = fichiers_recents[j - 1];
-        }
-        // Ajout du nouveau fichier à la première position
-        fichiers_recents[0] = nom_fichier_sortie; // ajout dun nouveau fichier vide
+            grille->afficher_grille();
 
-        verif_generation_successive(); //methode pour verif si les generation successice sont les memes
+            // informations sur la grille
+            cout << "Generation : " << this->generation << endl;
+            cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
+            cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
+            cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
+            cout << "====================" << endl;
+
+            grille->Grille_update();
+            generation++;
+
+            // recup du nom du fichier genere
+            nom_fichier_sortie = sortie.ecriture_fichier(grille->get_matrice(), generation); // on recup le nom du fichier
+
+            // Déplacement des fichiers dans la liste récents
+            for (int j = nombre_dernier_fichier - 1; j > 0; j--)
+            {
+                fichiers_recents[j] = fichiers_recents[j - 1];
+            }
+            // Ajout du nouveau fichier à la première position
+            fichiers_recents[0] = nom_fichier_sortie; // ajout dun nouveau fichier vide
+
+            verif_generation_successive(); // methode pour verif si les generation successice sont les memes
+        }
     }
 }
 
