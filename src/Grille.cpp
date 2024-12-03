@@ -1,4 +1,5 @@
 #include "Grille.h"
+using namespace std;
 
 Grille::Grille(){
     Grille_init();

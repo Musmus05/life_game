@@ -15,13 +15,13 @@ public:
     int get_colonne();
     void set_colonne(int y);
     void afficher_grille();
-    int ajouter(Cellule *cellule);
-    int suprimmer(Cellule *cellule);
+    // int ajouter(Cellule *cellule);
+    // int suprimmer(Cellule *cellule);
     void Grille_update();
     int calcule_compteur_cellule();
     int calcule_compteur_cellule_morte();
     int calcule_compteur_cellule_vivante();
-    vector<vector<Cellule>> get_matrice();
+    std::vector<std::vector<Cellule>> get_matrice();
 
 };
 

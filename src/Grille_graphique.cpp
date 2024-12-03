@@ -1,5 +1,5 @@
 #include "Grille_graphique.h"
-
+using namespace std;
 Grille_graphique::Grille_graphique() : Grille(){}
 
 Grille_graphique::~Grille_graphique(){}

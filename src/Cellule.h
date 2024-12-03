@@ -16,7 +16,7 @@ public:
     int get_y();       // recupere l'ordonnee de la cellule
     /*---SETTERS---*/
     void status_update(int nouveau_status); // definir le statut de la cellule vivante ou morte
-    virtual ~Cellule();
+    ~Cellule();
 };
 
 #endif

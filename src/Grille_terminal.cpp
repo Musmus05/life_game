@@ -1,4 +1,5 @@
 #include "Grille_terminal.h"
+using namespace std;
 
 Grille_terminal::Grille_terminal() : Grille() {}
 

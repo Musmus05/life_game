@@ -1,5 +1,5 @@
 #include "Jeux_vie.h"
-
+using namespace std;
 Jeux_vie::Jeux_vie()
 {
     menu();
