@@ -6,7 +6,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "Cellule.h"
+#include "Grille.h"
+
 
 class Fichier
 {

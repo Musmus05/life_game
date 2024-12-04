@@ -28,7 +28,6 @@ private:
 
 public:
     Jeux_vie();
-    Jeux_vie(int choix,int nombre_generation);
     void menu();
     void run();  
     void verif_generation_successive();
