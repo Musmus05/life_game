@@ -1,16 +1,8 @@
 #include "Grille.h"
+#include "Fichier.h"
 using namespace std;
 
-Grille::Grille(){
-    Grille_init();
-};
-
-
-Grille::~Grille() {
-
-}
-
-void Grille::Grille_init() {
+Grille::Grille() {
     string filename;
     cout << "Nom du fichier : ";
     cin >> filename;
@@ -24,4 +16,30 @@ void Grille::Grille_init() {
             matrice[i][j] = Cellule(i, j, fichier.get_matrice()[i][j]);
         }
     }
+}
+
+Grille::~Grille() {}
+
+int Grille::get_ligne() const {
+    return ligne;
+}
+
+void Grille::set_ligne(int ligne) {
+    this->ligne = ligne;
+}
+
+int Grille::get_colonne() const {
+    return colonne;
+}
+
+void Grille::set_colonne(int colonne) {
+    this->colonne = colonne;
+}
+
+std::vector<std::vector<Cellule>> Grille::get_matrice() const {
+    return matrice;
+}
+
+void Grille::set_matrice(const std::vector<std::vector<Cellule>>& matrice) {
+    this->matrice = matrice;
 }

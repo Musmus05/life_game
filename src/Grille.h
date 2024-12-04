@@ -1,37 +1,25 @@
-#ifndef Grille_h
-#define Grille_h
+#ifndef GRILLE_H
+#define GRILLE_H
 
 #include <iostream>
 #include <vector>
-#include "Fichier.h"
 #include "Cellule.h"
 
-class Cellule;
-
 class Grille {
-    protected:
-        int ligne;
-        int colonne;
-        std::vector<std::vector<Cellule>> matrice; // Matrice 2D pour stocker les données
-        int compteur;
-        int compteur_cellule_morte;
-        int compteur_cellule_vivante;
-    public:
-        Grille();
-        void Grille_init();
-        virtual ~Grille();
-        virtual int get_ligne() = 0;
-        virtual void set_ligne(int ligne) = 0;
-        virtual int get_colonne() = 0;
-        virtual void set_colonne(int colonne)  = 0; 
-        virtual std::vector<std::vector<Cellule>> get_matrice() = 0;
-        virtual void afficher_grille() = 0;
-        virtual void Grille_update() = 0;
-        virtual int calcule_compteur_cellule() = 0;
-        virtual int calcule_compteur_cellule_morte() = 0;
-        virtual int calcule_compteur_cellule_vivante() = 0;
+protected:
+    int ligne;
+    int colonne;
+    std::vector<std::vector<Cellule>> matrice;
+public:
+    Grille();
+    virtual ~Grille();
+    int get_ligne() const;
+    void set_ligne(int ligne);
+    int get_colonne() const;
+    void set_colonne(int colonne);
+    std::vector<std::vector<Cellule>> get_matrice() const;
+    void set_matrice(const std::vector<std::vector<Cellule>>& matrice);
+    virtual void afficher_grille() = 0;
 };
-
-
 
 #endif
