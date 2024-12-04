@@ -30,7 +30,10 @@ Jeux_vie::Jeux_vie()
     case 2:
         cout << "Combien de temps entre chaque génération voulez-vous (en miliseconde) : ";
         cin >> this->temps_entre_generation;
+
         grille = new Affichage_graphique(this->temps_entre_generation);
+
+        
         break;
     case 3:
         exit(0);

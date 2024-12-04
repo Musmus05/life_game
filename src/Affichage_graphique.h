@@ -6,12 +6,13 @@
 #include "Grille.h"
 #include "Grille_update.h"
 #include "Grille_update_torique.h"
+#include "Grille_update_default.h"
 
 class Affichage_graphique : public Grille {
 private:
     int cellule_taille = 10;
     long int temps_entre_generation;
-    Grille_update_Torique grille_update;
+    Grille_update* grille_update;
 public:
     Affichage_graphique();
     Affichage_graphique(long int temps_entre_generation);
