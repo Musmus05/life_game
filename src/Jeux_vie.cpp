@@ -14,12 +14,22 @@ Jeux_vie::Jeux_vie()
         cin >> nombre_dernier_fichier;
         // redimensionnement du vecteur
         fichiers_recents.resize(nombre_dernier_fichier);
+        cout << "torique ou non torique ? (1/0) : ";
+        int torique;
+        cin >> torique;
+        if (torique == 1)
+        {
+            grille_update = new Grille_update_Torique();
+        }
+        else
+        {
+            grille_update = new Grille_update_default();
+        }
         break;
     case 2:
         cout << "Combien de temps entre chaque génération voulez-vous (en miliseconde) : ";
         cin >> this->temps_entre_generation;
         grille = new Affichage_graphique(this->temps_entre_generation);
-
         break;
     case 3:
         exit(0);
@@ -74,7 +84,7 @@ void Jeux_vie::run()
             fichiers_recents[0] = nom_fichier_sortie; // ajout dun nouveau fichier vide
 
             // mise a jour de la grille
-            grille_update.update(*grille);
+            grille_update->update(*grille);
             generation++;
         }
     }

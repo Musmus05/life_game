@@ -3,9 +3,9 @@
 
 #include "Grille.h"
 
-class GrilleUpdate {
+class Grille_update {
     public:
-    void update(Grille &grille);
+        virtual void update(Grille &grille) = 0;
 };
 
 #endif
