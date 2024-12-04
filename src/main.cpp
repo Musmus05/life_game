@@ -1,9 +1,4 @@
-#include "Fichier.h"
-#include "Grille.h"
-#include "Grille_terminal.h"
 #include "Jeux_vie.h"
-
-
 
 
 int main()
