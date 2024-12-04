@@ -7,7 +7,7 @@ Jeux_vie::Jeux_vie()
     switch (choix)
     {
     case 1:
-        grille = new Grille_terminal();
+        grille = new Affichage_terminal();
         cout << "Nombre de génération : ";
         cin >> this->nombre_generation;
         cout << "Combien de fichiers voulez-vous examiner pour vérifier la répétition des dernières générations : ";
@@ -18,7 +18,7 @@ Jeux_vie::Jeux_vie()
     case 2:
         cout << "Combien de temps entre chaque génération voulez-vous (en miliseconde) : ";
         cin >> this->temps_entre_generation;
-        grille = new Grille_graphique(temps_entre_generation);
+        grille = new Affichage_graphique(this->temps_entre_generation);
 
         break;
     case 3:
@@ -56,11 +56,11 @@ void Jeux_vie::run()
             grille->afficher_grille();
 
             // informations sur la grille
-            cout << "Generation : " << this->generation << endl;
-            cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
-            cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
-            cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
-            cout << "====================" << endl;
+            // cout << "Generation : " << this->generation << endl;
+            // cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
+            // cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
+            // cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
+            // cout << "====================" << endl;
 
             // recup du nom du fichier genere
             nom_fichier_sortie = sortie.ecriture_fichier(grille->get_matrice(), generation); // on recup le nom du fichier
@@ -72,7 +72,9 @@ void Jeux_vie::run()
             }
             // Ajout du nouveau fichier à la première position
             fichiers_recents[0] = nom_fichier_sortie; // ajout dun nouveau fichier vide
-            grille->Grille_update();
+
+            // mise a jour de la grille
+            grille_update.update(*grille);
             generation++;
         }
     }

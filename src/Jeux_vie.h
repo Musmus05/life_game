@@ -6,8 +6,9 @@
 #include "Fichier.h"
 #include "Cellule.h"
 #include "Grille.h"
-#include "Grille_terminal.h"
-#include "Grille_graphique.h"
+#include "Affichage_terminal.h"
+#include "Affichage_graphique.h"
+#include "Grille_update.h"
 
 class Jeux_vie
 {
@@ -20,6 +21,7 @@ private:
     std::vector<std::string> fichiers_recents;//gestion des dernier fichiers creer
     int nombre_dernier_fichier; //on stocke combien de dernier fichier ?
     long int temps_entre_generation ;
+    GrilleUpdate grille_update;
 
 public:
     Jeux_vie();
