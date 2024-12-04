@@ -17,9 +17,9 @@ private:
     int generation;
     int choix;
     Fichier sortie;
-
     std::vector<std::string> fichiers_recents;//gestion des dernier fichiers creer
     int nombre_dernier_fichier; //on stocke combien de dernier fichier ?
+    long int temps_entre_generation ;
 
 public:
     Jeux_vie();

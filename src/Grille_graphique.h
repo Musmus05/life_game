@@ -12,8 +12,10 @@ class Grille_graphique : public Grille {
         int cellule_taille = 10;
         int window_colonne = this->colonne * cellule_taille;
         int window_ligne = this->ligne * cellule_taille;
+        long int temps_entre_generation ;
     public:
         Grille_graphique();
+        Grille_graphique(long int temps_entre_generation);
         ~Grille_graphique();
         int get_ligne();
         void set_ligne(int x);

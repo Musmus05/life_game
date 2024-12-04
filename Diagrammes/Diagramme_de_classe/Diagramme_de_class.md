@@ -27,6 +27,7 @@ classDiagram
     }
 
     class Grille {
+        <<abstract>> 
         # int ligne
         # int colonne
         # matrice: Vector : Vector:       Cellule
@@ -63,6 +64,10 @@ classDiagram
     }
 
     class Grille_graphique {
+        - int cellule_taille 
+        - int window_colonne
+        - int window_ligne
+        - long int temps_entre_generation
         + Grille_graphique()
         + ~Grille_graphique()
         + int get_ligne()
@@ -81,6 +86,7 @@ classDiagram
         - int choix
         - int nombre_generation
         - int generation
+        - long int temps_entre_generation
         - Grille* grille
         - Fichier sortie
         + Jeux_vie()

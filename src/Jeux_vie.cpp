@@ -16,7 +16,10 @@ Jeux_vie::Jeux_vie()
         fichiers_recents.resize(nombre_dernier_fichier);
         break;
     case 2:
-        grille = new Grille_graphique();
+        cout << "Combien de temps entre chaque génération voulez-vous (en miliseconde) : ";
+        cin >> this->temps_entre_generation;
+        grille = new Grille_graphique(temps_entre_generation);
+
         break;
     case 3:
         exit(0);

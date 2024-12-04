@@ -4,6 +4,7 @@ Grille_graphique::Grille_graphique() : Grille(){}
 
 Grille_graphique::~Grille_graphique(){}
 
+Grille_graphique::Grille_graphique(long int temps_entre_generation):Grille(),temps_entre_generation(temps_entre_generation){}
 int Grille_graphique::get_ligne(){
     return this->ligne;
 }
@@ -53,7 +54,7 @@ void Grille_graphique::afficher_grille() {
 
         Grille_update(); // Mettre à jour la grille
         // Attendre un court instant avant la prochaine mise à jour
-        sf::sleep(sf::milliseconds(500));
+        sf::sleep(sf::milliseconds(this->temps_entre_generation));
     }
 }
 
