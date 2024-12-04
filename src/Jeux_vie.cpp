@@ -14,6 +14,7 @@ Jeux_vie::Jeux_vie()
         cin >> nombre_dernier_fichier;
         // redimensionnement du vecteur
         fichiers_recents.resize(nombre_dernier_fichier);
+        
         cout << "torique ou non torique ? (1/0) : ";
         int torique;
         cin >> torique;
@@ -63,16 +64,9 @@ void Jeux_vie::run()
         for (int i = 0; i < nombre_generation+1 ; i++)
         {
             verif_generation_successive(); // methode pour verif si les generation successice sont les memes
+            cout << "Generation : " << generation << endl;
             grille->afficher_grille();
-
-            // informations sur la grille
-            // cout << "Generation : " << this->generation << endl;
-            // cout << "Nombre de cellule : " << grille->calcule_compteur_cellule() << endl;
-            // cout << "Nombre de cellule vivante : " << grille->calcule_compteur_cellule_vivante() << endl;
-            // cout << "Nombre de cellule morte : " << grille->calcule_compteur_cellule_morte() << endl;
-            // cout << "====================" << endl;
-
-            // recup du nom du fichier genere
+            cout << "===================================" << endl;
             nom_fichier_sortie = sortie.ecriture_fichier(grille->get_matrice(), generation); // on recup le nom du fichier
 
             // Déplacement des fichiers dans la liste récents

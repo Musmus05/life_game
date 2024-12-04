@@ -12,6 +12,7 @@
 #include "Grille_update_default.h"
 #include "Grille_update_torique.h"
 
+
 class Jeux_vie
 {
 private:

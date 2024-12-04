@@ -13,5 +13,10 @@ void Affichage_terminal::afficher_grille() {
         cout << endl;
     }
     cout << endl;
+
+    // informations sur la grille
+    cout << "Nombre de cellules : " << compteur.calcule_compteur_cellule(*this) << endl;
+    cout << "Nombre de cellules vivantes : " << compteur.calcule_compteur_cellule_vivante(*this) << endl;
+    cout << "Nombre de cellules mortes : " << compteur.calcule_compteur_cellule_morte(*this) << endl;
 }
 
