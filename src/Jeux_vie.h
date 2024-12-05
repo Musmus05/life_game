@@ -11,12 +11,14 @@
 #include "Grille_update.h"
 #include "Grille_update_default.h"
 #include "Grille_update_torique.h"
+#include "Affichage.h"
 
 
 class Jeux_vie
 {
 private:
     Grille *grille;
+    Affichage *affichage;
     int nombre_generation;
     int generation;
     int choix;

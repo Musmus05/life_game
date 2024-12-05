@@ -2,12 +2,13 @@
 using namespace std;
 Jeux_vie::Jeux_vie()
 {
+    grille = new Grille();
     menu();
     cin >> choix;
     switch (choix)
     {
     case 1:
-        grille = new Affichage_terminal();
+        affichage = new Affichage_terminal(*grille);
         cout << "Nombre de génération : ";
         cin >> this->nombre_generation;
         cout << "Combien de fichiers voulez-vous examiner pour vérifier la répétition des dernières générations : ";
@@ -28,10 +29,10 @@ Jeux_vie::Jeux_vie()
         }
         break;
     case 2:
+        affichage = new Affichage_graphique();
         cout << "Combien de temps entre chaque génération voulez-vous (en miliseconde) : ";
         cin >> this->temps_entre_generation;
-
-        grille = new Affichage_graphique(this->temps_entre_generation);
+        
 
         
         break;
@@ -60,7 +61,7 @@ void Jeux_vie::run()
     sortie.supprimer_dossier(); // sup les anciens fichiers
     if (choix == 2)
     {
-        grille->afficher_grille();
+        affichage->afficher_grille();
     }
     else
     {
@@ -68,9 +69,9 @@ void Jeux_vie::run()
         {
             verif_generation_successive(); // methode pour verif si les generation successice sont les memes
             cout << "Generation : " << generation << endl;
-            grille->afficher_grille();
+            affichage->afficher_grille();
             cout << "===================================" << endl;
-            nom_fichier_sortie = sortie.ecriture_fichier(grille->get_matrice(), generation); // on recup le nom du fichier
+            nom_fichier_sortie = sortie.ecriture_fichier(grille.get_matrice(), generation); // on recup le nom du fichier
 
             // Déplacement des fichiers dans la liste récents
             for (int j = nombre_dernier_fichier - 1; j > 0; j--)
@@ -81,7 +82,7 @@ void Jeux_vie::run()
             fichiers_recents[0] = nom_fichier_sortie; // ajout dun nouveau fichier vide
 
             // mise a jour de la grille
-            grille_update->update(*grille);
+            grille_update->update(grille);
             generation++;
         }
     }
@@ -94,7 +95,6 @@ int Jeux_vie::get_generation()
 
 Jeux_vie::~Jeux_vie()
 {
-    delete grille; // libere la memoire
 }
 
 void Jeux_vie::verif_generation_successive()

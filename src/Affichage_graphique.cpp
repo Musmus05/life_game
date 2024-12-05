@@ -1,11 +1,11 @@
 #include "Affichage_graphique.h"
 using namespace std;
 using namespace sf;
-Affichage_graphique::Affichage_graphique() : Grille() {}
+Affichage_graphique::Affichage_graphique() {}
 
 Affichage_graphique::~Affichage_graphique() {}
 
-Affichage_graphique::Affichage_graphique(long int temps_entre_generation) : Grille(), temps_entre_generation(temps_entre_generation)
+Affichage_graphique::Affichage_graphique(long int temps_entre_generation):Affichage(), temps_entre_generation(temps_entre_generation)
 {
     cout << "Torique ou non torique ? (1/0) : ";
     int torique;
@@ -58,28 +58,28 @@ void Affichage_graphique::afficher_grille()
         windowCompteurs.display();
 
         // Mise à jour de la grille
-        grille_update->update(*this);
+        grille_update->update(grille);
         sleep(milliseconds(temps_entre_generation)); //temps entre generation
     }
 }
 
 void Affichage_graphique::afficher_cellule()
 {
-    for (int i = 0; i < get_ligne(); i++)
+    for (int i = 0; i < grille.get_ligne(); i++)
     {
-        for (int j = 0; j < get_colonne(); j++)
+        for (int j = 0; j < grille.get_colonne(); j++)
         {
             sf::RectangleShape rectangle(sf::Vector2f(cellule_taille, cellule_taille));
             rectangle.setPosition(j * cellule_taille, i * cellule_taille);
-            if (get_matrice()[i][j].get_status() == 1)
+            if (grille.get_matrice()[i][j].get_status() == 1)
             {
                 rectangle.setFillColor(sf::Color::Black);
             }
-            else if (get_matrice()[i][j].get_status() == 0)
+            else if (grille.get_matrice()[i][j].get_status() == 0)
             {
                 rectangle.setFillColor(sf::Color::White);
             }
-            else if (get_matrice()[i][j].get_status() == 2)
+            else if (grille.get_matrice()[i][j].get_status() == 2)
             {
                 rectangle.setFillColor(sf::Color::Red);
             }
@@ -90,9 +90,9 @@ void Affichage_graphique::afficher_cellule()
 
 void Affichage_graphique::afficher_compteurs()
 {
-    int total = compteur.calcule_compteur_cellule(*this);
-    int vivantes = compteur.calcule_compteur_cellule_vivante(*this); //on met les compteurs dans des var
-    int mortes = compteur.calcule_compteur_cellule_morte(*this);
+    int total = compteur.calcule_compteur_cellule(grille);
+    int vivantes = compteur.calcule_compteur_cellule_vivante(grille); //on met les compteurs dans des var
+    int mortes = compteur.calcule_compteur_cellule_morte(grille);
 
     // Chargement de la police
     sf::Font font;

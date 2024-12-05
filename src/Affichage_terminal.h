@@ -5,10 +5,10 @@
 #include "Grille.h"
 #include "Grille_update.h"
 #include "compteurs.h"
+#include "Affichage.h"
 
-class Affichage_terminal : public Grille {
-private:
-    Compteurs compteur;
+class Affichage_terminal  : public Affichage
+{
 public:
     Affichage_terminal();
     ~Affichage_terminal();
