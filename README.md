@@ -1,6 +1,3 @@
-Je vais mettre à jour le fichier README avec les modifications demandées. Voici le nouveau contenu pour le fichier README :
-
-
 # 🎲 Projet Jeu de la Vie CPIA2
 
 ## 👥 Fait par :
