@@ -3,10 +3,10 @@ using namespace std;
 
 Jeux_vie::Jeux_vie() {
     menu();
-    grille = new Grille();
     cin >> choix;
     switch (choix) {
     case 1:
+        grille = new Grille();
         affichage = new Affichage_terminal(grille);
         cout << "Nombre de génération : ";
         cin >> this->nombre_generation;
@@ -25,6 +25,7 @@ Jeux_vie::Jeux_vie() {
         }
         break;
     case 2:
+        grille = new Grille();
         cout << "Combien de temps entre chaque génération voulez-vous (en miliseconde) : ";
         cin >> this->temps_entre_generation;
         affichage = new Affichage_graphique(grille, this->temps_entre_generation);
