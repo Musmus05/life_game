@@ -19,7 +19,6 @@ public:
     void set_colonne(int colonne);
     std::vector<std::vector<Cellule>> get_matrice() const;
     void set_matrice(const std::vector<std::vector<Cellule>>& matrice);
-    virtual void afficher_grille() = 0;
 };
 
 #endif

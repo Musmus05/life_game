@@ -1,5 +1,5 @@
-#ifndef jeux_vie_h
-#define jeux_vie_h
+#ifndef JEUX_VIE_H
+#define JEUX_VIE_H
 
 #include <iostream>
 #include <vector>
@@ -11,25 +11,25 @@
 #include "Grille_update.h"
 #include "Grille_update_default.h"
 #include "Grille_update_torique.h"
+#include "Affichage.h"
 
-
-class Jeux_vie
-{
+class Jeux_vie {
 private:
     Grille *grille;
+    Affichage *affichage;
     int nombre_generation;
     int generation;
     int choix;
     Fichier sortie;
-    std::vector<std::string> fichiers_recents;//gestion des dernier fichiers creer
+    std::vector<std::string> fichiers_recents; //gestion des dernier fichiers creer
     int nombre_dernier_fichier; //on stocke combien de dernier fichier ?
-    long int temps_entre_generation ;
+    long int temps_entre_generation;
     Grille_update* grille_update;
 
 public:
     Jeux_vie();
     void menu();
-    void run();  
+    void run();
     void verif_generation_successive();
     int get_generation();
     ~Jeux_vie();
