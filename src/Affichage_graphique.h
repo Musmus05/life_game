@@ -19,12 +19,16 @@ private:
     int window_colonne;
     int window_ligne;
     Compteurs compteur;
-    sf::RenderWindow *window; //premiere fenetre
-    sf::RenderWindow *windowCompteurs; //deuxieme fenetre
-    int generation = 0; //compteur genration
+    sf::RenderWindow *window;          // premiere fenetre
+    sf::RenderWindow *windowCompteurs; // deuxieme fenetre
+    int generation = 0;                // compteur genration
+    sf::RectangleShape button; //bouton1
+    sf::RectangleShape button2; //bouton2
+    sf::RectangleShape button3; //bouton3
+    sf::RectangleShape button4; //bouton3
 
 public:
-    Affichage_graphique(Grille* grille, long int temps_entre_generation);
+    Affichage_graphique(Grille *grille, long int temps_entre_generation);
     ~Affichage_graphique();
     void afficher_grille() override;
     void afficher_cellule();

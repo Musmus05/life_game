@@ -26,41 +26,104 @@ void Affichage_graphique::afficher_grille()
     RenderWindow window(VideoMode(window_colonne, window_ligne), "Jeu de la vie"); // fenetre pour le jeu
     this->window = &window;
 
-    RenderWindow windowCompteurs(VideoMode(400, 200), "Compteurs"); // fenetre pour les compteurs
+    RenderWindow windowCompteurs(VideoMode(400, 250), "Compteurs"); // fenetre pour les compteurs
     windowCompteurs.setPosition(sf::Vector2i(0, 0));
     this->windowCompteurs = &windowCompteurs;
+
+    bool isPaused = false; // pause ou play
+
+    // charger police
+    sf::Font font;
+    if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
+    {
+        std::cout << "Impossible de charger la police!" << std::endl;
+        return;
+    }
+
+    // init du texte de pause
+    sf::Text pause;
+    pause.setFont(font);
+    pause.setString("Pause");
+    pause.setFillColor(sf::Color::Red);
+    pause.setCharacterSize(20);
+    pause.setPosition(window.getSize().x / 2 - pause.getLocalBounds().width / 2, window.getSize().y / 4); // centrer
 
     while (window.isOpen())
     {
         sf::Event event;
 
+        // gestion event fenetre principale
         while (window.pollEvent(event))
-        { // fenetre principale
+        {
             if (event.type == Event::Closed)
-            { // verification si fermé ou non
+            {
                 window.close();
             }
         }
 
+        // gestion event fenetre compteur
         while (windowCompteurs.pollEvent(event))
-        { // verification si fermé ou non
+        {
             if (event.type == Event::Closed)
             {
                 windowCompteurs.close();
             }
+            else if (event.type == sf::Event::MouseButtonPressed) // verif le clic de la soures
+            {
+                if (event.mouseButton.button == sf::Mouse::Left) // verif si c'est un clic gauche
+                {
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(windowCompteurs); // recup la position de la souris
+
+                    // si le bouton 3 est clique
+                    if (button3.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                    {
+                        isPaused = true; // mettre en pause
+                    }
+
+                    // si le bouton 4 est clique
+                    if (button4.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                    {
+                        isPaused = false; // relancer le jeu
+                    }
+
+                    // bouton 1 et 2
+                    if (button.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) // Bouton 1
+                    {
+                        temps_entre_generation = temps_entre_generation + 100; // Augmente le temps entre les gen
+                    }
+
+                    if (button2.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) // Bouton 2
+                    {
+                        temps_entre_generation = temps_entre_generation - 100; // Diminue le temps entre les gen
+                    }
+                }
+            }
         }
 
-        window.clear();
-        afficher_cellule(); // acutaliser la premiere fenetre
-        window.display();
+        // verif si le jeu est en pause
+        if (!isPaused)
+        {
+            // maj de la fenetre principale
+            window.clear();
+            afficher_cellule();
+            window.display();
 
-        windowCompteurs.clear();
-        afficher_compteurs(); // actualiser la deuxieme fenetre
-        windowCompteurs.display();
+            // maj fenetre compteur
+            windowCompteurs.clear();
+            afficher_compteurs();
+            windowCompteurs.display();
 
-        // Mise à jour de la grille
-        grille_update->update(*grille);
-        sleep(milliseconds(temps_entre_generation)); // temps entre generation
+            // Mise à jour de la grille
+            grille_update->update(*grille);
+            sleep(milliseconds(temps_entre_generation)); // temps entre generation
+        }
+        else
+        {
+            //si jeu en pause affiche pause
+            window.clear();
+            afficher_cellule();
+            window.display();
+        }
     }
 }
 
@@ -91,46 +154,103 @@ void Affichage_graphique::afficher_cellule()
 
 void Affichage_graphique::afficher_compteurs()
 {
+    // Calcul des compteurs
     int total = compteur.calcule_compteur_cellule(*grille);
-    int vivantes = compteur.calcule_compteur_cellule_vivante(*grille); // on met les compteurs dans des var
+    int vivantes = compteur.calcule_compteur_cellule_vivante(*grille);
     int mortes = compteur.calcule_compteur_cellule_morte(*grille);
 
     // Chargement de la police
     sf::Font font;
     if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
     {
-        cout << "Erreur : impossible de charger la police DejaVu Sans." << endl;
+        std::cout << "Erreur : impossible de charger la police DejaVu Sans." << std::endl;
         return;
     }
 
-    sf::Text textTotal, textVivantes, textMortes, textgeneration; // defini les polices d'écriture
+    // Définition des textes pour les compteurs
+    sf::Text textTotal, textVivantes, textMortes, textGeneration;
     textTotal.setFont(font);
     textVivantes.setFont(font);
     textMortes.setFont(font);
-    textgeneration.setFont(font);
+    textGeneration.setFont(font);
 
-    textTotal.setString("Nombre de cellules : " + to_string(total)); // on set le text pour chque compteur
-    textVivantes.setString("Nombre de cellules vivantes : " + to_string(vivantes));
-    textMortes.setString("Nombre de cellules mortes : " + to_string(mortes));
-    textgeneration.setString("Generations : " + to_string(generation++));
+    textTotal.setString("Nombre de cellules : " + std::to_string(total));
+    textVivantes.setString("Nombre de cellules vivantes : " + std::to_string(vivantes));
+    textMortes.setString("Nombre de cellules mortes : " + std::to_string(mortes));
+    textGeneration.setString("Generations : " + std::to_string(generation++));
 
-    textTotal.setCharacterSize(20); // on set la taille de police
+    textTotal.setCharacterSize(20);
     textVivantes.setCharacterSize(20);
     textMortes.setCharacterSize(20);
-    textgeneration.setCharacterSize(20);
+    textGeneration.setCharacterSize(20);
 
-    textTotal.setFillColor(sf::Color::White); // on set la couleur
+    textTotal.setFillColor(sf::Color::White);
     textVivantes.setFillColor(sf::Color::White);
     textMortes.setFillColor(sf::Color::White);
-    textgeneration.setFillColor(sf::Color::White);
+    textGeneration.setFillColor(sf::Color::White);
 
-    textTotal.setPosition(10, 10); // on set la position
+    textTotal.setPosition(10, 10);
     textVivantes.setPosition(10, 40);
     textMortes.setPosition(10, 70);
-    textgeneration.setPosition(10, 100);
+    textGeneration.setPosition(10, 100);
 
-    windowCompteurs->draw(textTotal); // on affiche sur la deuxieme fenetre
+    // création du bouton avec un rectangle et du texte dedans
+    button.setSize(sf::Vector2f(150, 40));
+    button.setFillColor(sf::Color::Blue);
+    button.setPosition(10, 150);
+
+    sf::Text buttonText;
+    buttonText.setFont(font);
+    buttonText.setString("Ralentir"); // On donne les caractéristique du bouton
+    buttonText.setCharacterSize(20);
+    buttonText.setFillColor(sf::Color::White);
+    buttonText.setPosition(button.getPosition().x + 10, button.getPosition().y + 5); // pos du bouton
+    // création du bouton avec un rectangle et du texte dedans
+    button2.setSize(sf::Vector2f(150, 40));
+    button2.setFillColor(sf::Color::Blue);
+    button2.setPosition(170, 150);
+
+    sf::Text buttonText2;
+    buttonText2.setFont(font);
+    buttonText2.setString("Accelerer");
+    buttonText2.setCharacterSize(20); // On donne les caractéristique du bouton
+    buttonText2.setFillColor(sf::Color::White);
+    buttonText2.setPosition(button2.getPosition().x + 10, button2.getPosition().y + 5);
+
+    // création du bouton avec un rectangle et du texte dedans
+    button3.setSize(sf::Vector2f(150, 40));
+    button3.setFillColor(sf::Color::Blue);
+    button3.setPosition(10, 200);
+
+    sf::Text buttonText3;
+    buttonText3.setFont(font);
+    buttonText3.setString("⏸");
+    buttonText3.setCharacterSize(20); // On donne les caractéristique du bouton
+    buttonText3.setFillColor(sf::Color::White);
+    buttonText3.setPosition(button3.getPosition().x + 10, button3.getPosition().y + 5);
+
+    button4.setSize(sf::Vector2f(150, 40));
+    button4.setFillColor(sf::Color::Blue);
+    button4.setPosition(170, 200);
+
+    sf::Text buttonText4;
+    buttonText4.setFont(font);
+    buttonText4.setString("||>");
+    buttonText4.setCharacterSize(20); // On donne les caractéristique du bouton
+    buttonText4.setFillColor(sf::Color::White);
+    buttonText4.setPosition(button4.getPosition().x + 10, button4.getPosition().y + 5);
+
+    // Dessin des éléments sur la fenêtre des compteurs
+    windowCompteurs->draw(textTotal);
     windowCompteurs->draw(textVivantes);
     windowCompteurs->draw(textMortes);
-    windowCompteurs->draw(textgeneration);
+    windowCompteurs->draw(textGeneration);
+    windowCompteurs->draw(button);      // on dessine le bouton
+    windowCompteurs->draw(button2);     // on dessine le bouton
+    windowCompteurs->draw(button3);     // on dessine le bouton
+    windowCompteurs->draw(button4);     // on dessine le bouton
+    windowCompteurs->draw(buttonText);  // on dessine le text sur le bouton
+    windowCompteurs->draw(buttonText2); // on dessine le text sur le bouton
+    windowCompteurs->draw(buttonText3); // on dessine le text sur le bouton
+    windowCompteurs->draw(buttonText4); // on dessine le text sur le bouton
 }
