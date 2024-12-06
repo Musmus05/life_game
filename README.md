@@ -4,8 +4,9 @@
 - Musmus05 : Madani Mustapha
 - Cherubalex : Maumy Alexandre
 
-## 🖥️ Pour plus d'information
-Lancer la docummentation technique et utlisateur en pdf
+## 📄 Pour plus d'information (Documentation)
+Pour plus d'informations, consultez la [documentation technique et utilisateur](./Documentations_jeu_de_la_vie_Groupe6.pdf)
+
 
 
 ## 📚 Description
@@ -17,8 +18,9 @@ Ce projet implémente le célèbre "Jeu de la Vie" de John Conway en C++. Le jeu
 - Affichage de la grille à chaque étape, L'utilisateur choisit entre un affichage terminal et graphique
 
 ## 🛠️ Langages et Technologies
-- C++ (97.6%)
-- Makefile (2.4%)
+- C++ (98.1%)
+- Makefile (1.3%)
+- Python (0,6%)
 
 ## 📦 Installation
 Pour compiler et exécuter le projet, utilisez les commandes suivantes :
