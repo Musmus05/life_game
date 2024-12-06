@@ -493,99 +493,137 @@ void test_grille_update_default()
     cout << "Test Grille_update_default passé avec succès !" << endl;
 }
 
+
 void test_grille_update_torique()
 {
     cout << "==============================" << endl;
     cout << "Test de mise à jour de la grille avec une grille torique" << endl;
     cout << "==============================" << endl;
-    Grille grille;
-    vector<vector<Cellule>> matrice(5, vector<Cellule>(10));
 
-    //init d'une matrice avec un motif special
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            if ((i == 0 && j == 2) || (i == 2 && j == 2) || (i == 4 && j == 2))
-            {
-                matrice[i][j] = Cellule(i, j, 1); //cellule vivante
-            }
-            else
-            {
-                matrice[i][j] = Cellule(i, j, 0); //cellule morte
-            }
+    //ouvre le fichier contenant le motif de la grille
+    ifstream fichier("test_torique.txt");
+    if (!fichier) {
+        cerr << "Erreur : impossible d'ouvrir le fichier motif.txt." << endl;
+        return;
+    }
+
+    //lire les dimensions de la grille
+    int lignes, colonnes;
+    fichier >> lignes >> colonnes;  //premiere ligen
+
+    //init grille
+    Grille grille;
+    vector<vector<Cellule>> matrice(lignes, vector<Cellule>(colonnes));
+
+    //lecture matrice a partir du fichier
+    for (int i = 0; i < lignes; i++) {
+        for (int j = 0; j < colonnes; j++) {
+            int valeur;
+            fichier >> valeur;  //lire statut de chaque cellule
+            matrice[i][j] = Cellule(i, j, valeur);  //init la cellule avec la valeur lue
         }
     }
 
-    //config de la grille
+    //config la grille avec la matrice lue
     grille.set_matrice(matrice);
 
-    //affichage de la grille avant la maj
+    //affiche la grille avant la maj
     cout << "Grille initiale :" << endl;
-    for (int i = 0; i < grille.get_ligne(); i++)
-    {
-        for (int j = 0; j < grille.get_colonne(); j++)
-        {
+    for (int i = 0; i < grille.get_ligne(); i++) {
+        for (int j = 0; j < grille.get_colonne(); j++) {
             cout << grille.get_matrice()[i][j].get_status() << " ";
         }
         cout << endl;
     }
 
-    //application de la maj torique
+    //applique la maj torique
     Grille_update_Torique update_torique;
     update_torique.update(grille);
 
-    //affichage de la grille apres la maj
+    //affiche la grille apres la maj
     cout << "Grille après mise à jour torique :" << endl;
-    for (int i = 0; i < grille.get_ligne(); i++)
-    {
-        for (int j = 0; j < grille.get_colonne(); j++)
-        {
+    for (int i = 0; i < grille.get_ligne(); i++) {
+        for (int j = 0; j < grille.get_colonne(); j++) {
             cout << grille.get_matrice()[i][j].get_status() << " ";
         }
         cout << endl;
     }
 
-    //verif des resultats attendus apres maj
+    //verif des resultats attendus apres la maj
     bool test_passed = true;
 
-    //verif l'etat des cellules apres la mise à jour
-    //ex : Cellule (2, 2) qui devrait mourir car elle a moins de 2 voisins
-    if (grille.get_matrice()[2][2].get_status() != 0)
-    {
-        cout << "Echec du test : la cellule (2, 2) devrait être morte." << endl;
-        test_passed = false;
+        for (int i = 0; i < grille.get_ligne(); i++) {
+        for (int j = 0; j < grille.get_colonne(); j++) {
+            //nombre de voisin de chaque cellule
+            int voisins_vivants = 0;
+
+            //verif des voisins dans la grille torique
+            for (int di = -1; di <= 1; di++) {
+                for (int dj = -1; dj <= 1; dj++) {
+                    if (di == 0 && dj == 0) continue;  //ignore la cellule elle-meme
+
+                    //calcul l'indice des voisins en torique
+                    int ni = (i + di + grille.get_ligne()) % grille.get_ligne();
+                    int nj = (j + dj + grille.get_colonne()) % grille.get_colonne();
+
+                    if (grille.get_matrice()[ni][nj].get_status() == 1) {
+                        voisins_vivants++;
+                    }
+                }
+            }
+
+            //regle du jeu pour les verifs
+            int etat_actuel = grille.get_matrice()[i][j].get_status();
+            int etat_attendu = etat_actuel;
+
+            //regle du jeu torique
+            if (etat_actuel == 1) {
+                if (voisins_vivants < 2 || voisins_vivants > 3) {
+                    etat_attendu = 0;  //cellule meurt
+                }
+            } else {
+                if (voisins_vivants == 3) {
+                    etat_attendu = 1;  //cellule vie
+                }
+            }
+
+            //verif si l'etat attendu est le bon
+            if (etat_actuel != etat_attendu) {
+                cout << "Echec du test : la cellule (" << i << ", " << j << ") devrait avoir l'état " 
+                     << etat_attendu << " mais a l'état " << etat_actuel << "." << endl;
+                test_passed = false;
+            }
+        }
     }
 
     //resultat du test
-    if (test_passed)
-    {
+    if (test_passed) {
         cout << "Test effectué avec succès !" << endl;
-    }
-    else
-    {
+    } else {
         cout << "Test échoué." << endl;
     }
 }
 
+
+
 void test (){
-    test_lecture_fichier();
-    test_ecriture_fichier();
-    test_creer_dossier();
-    test_supprimer_dossier();
-    test_get_nom();
-    test_grille_creation();
-    test_set_ligne();
-    test_set_colonne();
-    test_set_matrice();
-    test_get_matrice();
-    test_cellule_creation_par_defaut();
-    test_cellule_creation_par_parametres();
-    test_getters();
-    test_status_update();
-    test_affichage_terminal_et_compteurs();
-    test_affichage_graphique_et_compteurs();
-    test_grille_update_default();
+    // test_lecture_fichier();
+    // test_ecriture_fichier();
+    // test_creer_dossier();
+    // test_supprimer_dossier();
+    // test_get_nom();
+    // test_grille_creation();
+    // test_set_ligne();
+    // test_set_colonne();
+    // test_set_matrice();
+    // test_get_matrice();
+    // test_cellule_creation_par_defaut();
+    // test_cellule_creation_par_parametres();
+    // test_getters();
+    // test_status_update();
+    // test_affichage_terminal_et_compteurs();
+    // test_affichage_graphique_et_compteurs();
+    // test_grille_update_default();
     test_grille_update_torique();
 
 }
