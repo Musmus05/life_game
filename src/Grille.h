@@ -6,7 +6,7 @@
 #include "Cellule.h"
 
 class Grille {
-protected:
+private:
     int ligne;
     int colonne;
     std::vector<std::vector<Cellule>> matrice;

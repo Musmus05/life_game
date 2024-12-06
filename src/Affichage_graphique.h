@@ -13,7 +13,7 @@
 class Affichage_graphique : public Affichage
 {
 private:
-    int cellule_taille = 10;
+    int cellule_taille = 50;
     long int temps_entre_generation;
     Grille_update *grille_update;
     int window_colonne;
