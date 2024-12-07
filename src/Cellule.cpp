@@ -3,9 +3,7 @@
 
 Cellule::Cellule() : x(0), y(0), status_cellule(0) {
 }
-Cellule::Cellule(int x, int y, int status):x(x),y(y),status_cellule(status){
-
-}
+Cellule::Cellule(int x, int y, int status):x(x),y(y),status_cellule(status){}
 Cellule::~Cellule(){
 }
 int Cellule::get_status(){

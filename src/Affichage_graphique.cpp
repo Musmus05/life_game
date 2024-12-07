@@ -5,8 +5,8 @@ using namespace sf;
 Affichage_graphique::Affichage_graphique(Grille *grille, long int temps_entre_generation) : Affichage(grille), temps_entre_generation(temps_entre_generation)
 {
     cout << "Torique ou non torique ? (1/0) : ";
-    int torique;
-    cin >> torique;
+    int torique; // on demande si torique ou non
+    cin >> torique; 
     if (torique == 1)
     {
         grille_update = new Grille_update_Torique();
@@ -15,8 +15,8 @@ Affichage_graphique::Affichage_graphique(Grille *grille, long int temps_entre_ge
     {
         grille_update = new Grille_update_default();
     }
-    window_colonne = grille->get_colonne() * cellule_taille;
-    window_ligne = grille->get_ligne() * cellule_taille;
+    window_colonne = grille->get_colonne() * cellule_taille; // on set la taille de la fenetre
+    window_ligne = grille->get_ligne() * cellule_taille; 
 }
 
 Affichage_graphique::~Affichage_graphique() {}
@@ -50,40 +50,40 @@ void Affichage_graphique::afficher_grille()
             }
         }
 
-        window.clear();
+        window.clear(); // on clear les fenetres
         afficher_cellule(); // acutaliser la premiere fenetre
-        window.display();
+        window.display(); // on affiche
 
-        windowCompteurs.clear();
+        windowCompteurs.clear(); // on clear les fenetres
         afficher_compteurs(); // actualiser la deuxieme fenetre
-        windowCompteurs.display();
+        windowCompteurs.display(); // on affiche
 
         // Mise à jour de la grille
-        grille_update->update(*grille);
+        grille_update->update(*grille); // on update la grille
         sleep(milliseconds(temps_entre_generation)); // temps entre generation
     }
 }
 
 void Affichage_graphique::afficher_cellule()
 {
-    for (int i = 0; i < grille->get_ligne(); i++)
+    for (int i = 0; i < grille->get_ligne(); i++) // on parcours la grille
     {
         for (int j = 0; j < grille->get_colonne(); j++)
         {
-            sf::RectangleShape rectangle(sf::Vector2f(cellule_taille, cellule_taille));
-            rectangle.setPosition(j * cellule_taille, i * cellule_taille);
-            if (grille->get_matrice()[i][j].get_status() == 1)
+            sf::RectangleShape rectangle(sf::Vector2f(cellule_taille, cellule_taille)); // on crée un rectangle avec la taille d'une cellule
+            rectangle.setPosition(j * cellule_taille, i * cellule_taille); // on set la position
+            if (grille->get_matrice()[i][j].get_status() == 1) // si la cellule est vivante
             {
-                rectangle.setFillColor(sf::Color::Black);
+                rectangle.setFillColor(sf::Color::Black);  // on set la couleur noir
             }
-            else if (grille->get_matrice()[i][j].get_status() == 0)
+            else if (grille->get_matrice()[i][j].get_status() == 0) // si la cellule est morte
             {
-                rectangle.setFillColor(sf::Color::White);
-            }
-            else if (grille->get_matrice()[i][j].get_status() == 2)
+                rectangle.setFillColor(sf::Color::White); // on set la couleur blanche
+            } 
+            else if (grille->get_matrice()[i][j].get_status() == 2) // si la cellule est un obstacle
             {
-                rectangle.setFillColor(sf::Color::Red);
-            }
+                rectangle.setFillColor(sf::Color::Red); // on set la couleur rouge
+            } 
             window->draw(rectangle);
         }
     }
@@ -91,26 +91,26 @@ void Affichage_graphique::afficher_cellule()
 
 void Affichage_graphique::afficher_compteurs()
 {
-    int total = compteur.calcule_compteur_cellule(*grille);
+    int total = compteur.calcule_compteur_cellule(*grille); // on calcule les compteurs
     int vivantes = compteur.calcule_compteur_cellule_vivante(*grille); // on met les compteurs dans des var
     int mortes = compteur.calcule_compteur_cellule_morte(*grille);
 
     // Chargement de la police
     sf::Font font;
-    if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
+    if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")) // on charge la police
     {
         cout << "Erreur : impossible de charger la police DejaVu Sans." << endl;
         return;
     }
 
     sf::Text textTotal, textVivantes, textMortes, textgeneration; // defini les polices d'écriture
-    textTotal.setFont(font);
+    textTotal.setFont(font); 
     textVivantes.setFont(font);
     textMortes.setFont(font);
     textgeneration.setFont(font);
 
     textTotal.setString("Nombre de cellules : " + to_string(total)); // on set le text pour chque compteur
-    textVivantes.setString("Nombre de cellules vivantes : " + to_string(vivantes));
+    textVivantes.setString("Nombre de cellules vivantes : " + to_string(vivantes)); 
     textMortes.setString("Nombre de cellules mortes : " + to_string(mortes));
     textgeneration.setString("Generations : " + to_string(generation++));
 

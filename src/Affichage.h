@@ -1,6 +1,7 @@
 #ifndef AFFICHAGE_H
 #define AFFICHAGE_H
 
+
 #include "Grille.h"
 
 class Affichage {

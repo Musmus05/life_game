@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "SFML/Graphics.hpp"
-#include "Grille.h"
 #include "Grille_update.h"
 #include "Grille_update_torique.h"
 #include "Grille_update_default.h"

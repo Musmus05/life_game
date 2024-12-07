@@ -3,17 +3,17 @@
 using namespace std;
 
 Grille::Grille() {
-    string filename;
-    cout << "Nom du fichier : ";
+    string filename; // nom du fichier
+    cout << "Nom du fichier : "; // on demande le nom du fichier
     cin >> filename;
-    Fichier fichier(filename);
-    fichier.lecture_fichier(filename);
-    ligne = fichier.get_ligne();
-    colonne = fichier.get_colonne();
-    matrice.resize(ligne, vector<Cellule>(colonne));
-    for (int i = 0; i < ligne; i++) {
-        for (int j = 0; j < colonne; j++) {
-            matrice[i][j] = Cellule(i, j, fichier.get_matrice()[i][j]);
+    Fichier fichier(filename); // on crée un objet fichier
+    fichier.lecture_fichier(filename); // on lit le fichier
+    ligne = fichier.get_ligne(); // on récupère le nombre de lignes
+    colonne = fichier.get_colonne(); // on récupère le nombre de colonnes
+    matrice.resize(ligne, vector<Cellule>(colonne)); // on redimensionne la matrice avec les dimensions de la matrice du fichier
+    for (int i = 0; i < ligne; i++) { // on parcours la matrice
+        for (int j = 0; j < colonne; j++) { 
+            matrice[i][j] = Cellule(i, j, fichier.get_matrice()[i][j]); // on crée une cellule avec les coordonnées et le statut de la matrice du fichier
         }
     }
 }

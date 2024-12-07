@@ -6,7 +6,7 @@
 class Grille_update_Torique : public Grille_update
 {
 public:
-    void update(Grille &grille);
+    void update(Grille &grille) override;
 };
 
 #endif
